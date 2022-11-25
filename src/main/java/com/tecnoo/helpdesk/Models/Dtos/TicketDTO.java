@@ -25,10 +25,15 @@ public class TicketDTO {
     @NotBlank(message = "O campo título é obrigatório") @Size(min = 5, max = 100)
     private String titulo;
 
+    @Size(min = 0, max = 255, message = "A descrição deve ter no máximo 255 caracteres")
+    private String descricao;
+
     @NotNull
+    @NotBlank(message = "O campo ID cliente é necessário")
     private Long idcliente;
 
-    @NotBlank (message = "Uma data de abertura é obrigatória")
+    @NotNull
+    @NotBlank(message = "O campo data de abertura é necessário")
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataAbertura;
 
@@ -37,13 +42,13 @@ public class TicketDTO {
 
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     @NotBlank (message = "O campo data Limite é obrigatório")
+    @NotNull
     private LocalDateTime dataLimite;
 
-    
-    @NotBlank (message = "O campo status é obrigatório")
     private Status status;
     
     @NotBlank (message = "Prioridade é obrigatório")
+    @NotNull
     private Prioridade prioridade;
     
     @NotBlank (message = "Local do atendimento é obrigatório")

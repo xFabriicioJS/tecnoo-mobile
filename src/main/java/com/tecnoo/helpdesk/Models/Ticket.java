@@ -21,7 +21,9 @@ import com.tecnoo.helpdesk.Models.Enums.TipoAtendimento;
 
 import java.time.LocalDateTime;
 
-@Data @Entity @Table(name = "tbchamados")
+@Data
+@Entity
+@Table(name = "tbchamados")
 public class Ticket {
 
     @Id
@@ -29,36 +31,32 @@ public class Ticket {
     @Column(name = "id_chamado")
     private Long id;
 
-    @NotBlank(message = "O campo protocolo é obrigatório") @Size(min = 5, max = 100)
+    @NotBlank(message = "O campo protocolo é obrigatório")
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     @Column(unique = true)
     private String protocolo;
 
-    @NotBlank(message = "O campo título é obrigatório") @Size(min = 5, max = 100)
     private String titulo;
 
-    @NotNull @ManyToOne
+    @NotNull
+    @ManyToOne
     private Cliente cliente;
 
-    @NotBlank (message = "Uma data de abertura é obrigatória")
-    private LocalDateTime dataAbertura;
+    private LocalDateTime dataAbertura = LocalDateTime.now();
 
     private LocalDateTime dataFinalizacao;
 
-    @NotBlank (message = "O campo data Limite é obrigatório")
     private LocalDateTime dataLimite;
 
     // private Foto fotoArquivo;
 
-    @NotBlank (message = "O campo status é obrigatório")
-    private Status status;
+    private Status status = Status.ABERTO;
 
-    @NotBlank (message = "Prioridade é obrigatório")
     private Prioridade prioridade;
 
-    @NotBlank (message = "Local do atendimento é obrigatório")
     private TipoAtendimento tipoAtendimento;
 
+    private String descricao;
 
 }
