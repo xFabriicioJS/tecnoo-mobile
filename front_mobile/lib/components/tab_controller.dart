@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:front_mobile/pages/chamados_page.dart';
 import 'package:front_mobile/pages/descartes_page.dart';
-import 'package:front_mobile/pages/opcoes_page.dart';
+import 'package:front_mobile/pages/minha_conta_page.dart';
 
 class TabControllerWidget extends StatelessWidget {
   const TabControllerWidget({
@@ -14,9 +14,10 @@ class TabControllerWidget extends StatelessWidget {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.purple,
           bottom: TabBar(
             indicator: BoxDecoration(
-              color: Theme.of(context).colorScheme.secondary,
+              color: Colors.lightBlue,
               borderRadius: BorderRadius.circular(50),
             ),
             tabs: const [
@@ -40,13 +41,13 @@ class TabControllerWidget extends StatelessWidget {
               ),
             ],
           ),
-          title: const Center(child: Text('Meu Tecnoo')),
+          title: const Center(child: Text('Tecnoo')),
         ),
         body: const TabBarView(
           children: [
             ChamadosPage(),
             DescartesPage(),
-            OpcoesPage(),
+            MinhaContaPage(),
           ],
         ),
       ),

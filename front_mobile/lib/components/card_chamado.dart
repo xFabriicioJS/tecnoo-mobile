@@ -34,10 +34,11 @@ class _ChamadoCardState extends State<ChamadoCard> {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
+    return Builder(builder: (context) {
       return SingleChildScrollView(
         child: Container(
-          width: constraints.maxHeight * 0.8,
+          margin: const EdgeInsets.only(top: 10),
+          width: MediaQuery.of(context).size.width * .85,
           child: _buildPanel(),
         ),
       );
@@ -45,32 +46,43 @@ class _ChamadoCardState extends State<ChamadoCard> {
   }
 
   Widget _buildPanel() {
-    return ExpansionPanelList(
-      expansionCallback: (int index, bool isExpanded) {
-        setState(() {
-          _data[index].isExpanded = !isExpanded;
-        });
-      },
-      children: _data.map<ExpansionPanel>((Item item) {
-        return ExpansionPanel(
-          headerBuilder: (BuildContext context, bool isExpanded) {
-            return ListTile(
-              title: Text(item.headerValue),
-            );
-          },
-          body: ListTile(
-              title: Text(item.expandedValue),
-              subtitle:
-                  const Text('To delete this panel, tap the trash can icon'),
-              trailing: const Icon(Icons.delete),
-              onTap: () {
-                setState(() {
-                  _data.removeWhere((Item currentItem) => item == currentItem);
-                });
-              }),
-          isExpanded: item.isExpanded,
-        );
-      }).toList(),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(8),
+      child: ExpansionPanelList(
+        expansionCallback: (int index, bool isExpanded) {
+          setState(() {
+            _data[index].isExpanded = !isExpanded;
+          });
+        },
+        children: _data.map<ExpansionPanel>((Item item) {
+          return ExpansionPanel(
+            headerBuilder: (BuildContext context, bool isExpanded) {
+              return ListTile(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                leading: const CircleAvatar(
+                  child: Icon(Icons.construction_rounded),
+                ),
+                title: Text(
+                  item.headerValue,
+                  style: const TextStyle(fontWeight: FontWeight.w500),
+                ),
+                onTap: () {},
+                subtitle: const Text('Data de abertura do chamado'),
+              );
+            },
+            body: ListTile(
+                title: Text(item.expandedValue),
+                subtitle: const Text('Descrição do chamado'),
+                trailing: const Icon(Icons.more_rounded),
+                onTap: () {
+                  print('Navegando para visualizar-chamado');
+                }),
+            isExpanded: item.isExpanded,
+          );
+        }).toList(),
+      ),
     );
   }
 }

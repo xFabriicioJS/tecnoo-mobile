@@ -8,15 +8,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = ThemeData();
-
     return MaterialApp(
-      title: "Meu Tecnoo",
-      theme: theme.copyWith(
-        colorScheme: theme.colorScheme.copyWith(
-            primary: Colors.purple,
-            secondary: Colors.greenAccent,
-            tertiary: Colors.teal),
+      theme: ThemeData(
+        brightness: Brightness.light,
+        primaryColor: Colors.purpleAccent,
+        fontFamily: 'Roboto',
+        textTheme: const TextTheme(
+            headline1: TextStyle(fontSize: 72, fontWeight: FontWeight.bold),
+            bodyText1: TextStyle(fontWeight: FontWeight.w700),
+            labelMedium: TextStyle(
+              fontWeight: FontWeight.w600,
+              color: Colors.grey,
+            )),
       ),
       home: const TabControllerWidget(),
     );
