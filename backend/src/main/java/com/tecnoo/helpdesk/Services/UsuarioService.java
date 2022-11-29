@@ -35,19 +35,33 @@ public class UsuarioService {
         Usuario usuarioAserAtualizado = findById(id);
 
 
-        //Executando algumas verificações para conferir se o CPF e Email passados não são possuidos por outro usuario. 
+
+        //Executando algumas verificações para conferir se o Login e Email passados não são possuidos por outro usuario.
         
         if(findByEmail(usuario.getEmail()) != null && findByEmail(usuario.getEmail()).getId() != id){
             throw new DataIntegrityViolationException("Email já cadastrado no sistema!");
         }
 
+        if(findByLoginUsuario(usuario.getLoginUsuario()) != null && findByLoginUsuario(usuario.getLoginUsuario())
+                .getId() != id){
+            throw new DataIntegrityViolationException("Login de usuário já cadastrado no sistema!");
+        }
+
         //Caso passe nessas verificações...
         usuarioAserAtualizado.setNome(usuario.getNome());
         usuarioAserAtualizado.setEmail(usuario.getEmail());
-        usuarioAserAtualizado.setNivel(usuario.getNivel());
+        usuarioAserAtualizado.setNiveis(usuario.getNiveis());
         usuarioAserAtualizado.setLoginUsuario(usuario.getLoginUsuario());
 
         return repository.saveAndFlush(usuarioAserAtualizado);
+    }
+
+    private Usuario findByLoginUsuario(String loginUsuario) {
+        Usuario usuario = repository.findByUsername(loginUsuario);
+        if(usuario != null){
+            return usuario;
+        }
+        return null;
     }
 
     public Usuario findByEmail(String email){
@@ -60,14 +74,7 @@ public class UsuarioService {
         return null;
     }
 
-    public Usuario findByLoginUsuario(String loginUsuario){
-        Usuario usuario = repository.findByLoginUsuario(loginUsuario);
-
-        if(usuario != null){
-            return usuario;
-        }
-        return null;
-    }
+    
 
     
 

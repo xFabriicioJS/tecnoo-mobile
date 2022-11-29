@@ -1,6 +1,7 @@
 package com.tecnoo.helpdesk.Services;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -33,16 +34,18 @@ public class ClienteService {
         return repository.findAll();
     }
 
+    
+
     public Cliente update(Long id, @Valid ClienteDTO cliente){
         Cliente clienteAserAtualizado = findById(id);
 
 
-        //Executando algumas verificações para conferir se o CPF e Email passados não são possuidos por outro cliente. 
-        if(findByCpf(cliente.getCpf()) != null && findByCpf(cliente.getCpf()).getId() != id){
+        //Executando algumas verificações para conferir se o CPF e email passados não são possuídos por outro cliente.
+        if(findByCpf(cliente.getCpf()) != null && !Objects.equals(findByCpf(cliente.getCpf()).getId(), id)){
             throw new DataIntegrityViolationException("Esse CPF já está cadastrado no sistema!");
         }
 
-        if(findByEmail(cliente.getEmail()) != null && findByEmail(cliente.getEmail()).getId() != id){
+        if(findByEmail(cliente.getEmail()) != null && !Objects.equals(findByEmail(cliente.getEmail()).getId(), id)){
             throw new DataIntegrityViolationException("Email já cadastrado no sistema!");
         }
 
@@ -59,21 +62,11 @@ public class ClienteService {
     }
 
     public Cliente findByCpf(String cpf){
-        Cliente cliente = repository.findByCpf(cpf);
-        if(cliente != null){
-            return cliente;
-        }
-        return null;
+        return repository.findByCpf(cpf);
     }
 
     public Cliente findByEmail(String email){
-        Cliente cliente = repository.findByEmail(email);
-        if(cliente != null){
-            return cliente;
-
-        }
-
-        return null;
+        return repository.findByEmail(email);
     }
 
 

@@ -11,6 +11,6 @@ import com.tecnoo.helpdesk.Models.Ticket;
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
     //Retorna todos os chamados por cliente
-    List<Ticket> findByClienteId();
+    List<Ticket> findByClienteId(Long id);
     
 }

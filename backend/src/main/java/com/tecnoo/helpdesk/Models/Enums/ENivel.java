@@ -1,6 +1,6 @@
 package com.tecnoo.helpdesk.Models.Enums;
 
-public enum Nivel {
+public enum ENivel {
     ADMINISTRADOR,
     SUPERVISOR,
     TECNICO,

@@ -18,8 +18,9 @@ import lombok.Data;
 
 @Entity @Table (name = "tbclientes") @Data
 public class Cliente {
-    
-    
+
+    public Cliente(){}
+
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -48,8 +49,14 @@ public class Cliente {
     @OneToOne
     private Endereco endereco;
 
+    @OneToOne
+    private Plano plano;
+
     @OneToMany(mappedBy = "cliente")
     private List<Ticket> chamados = new ArrayList<>();
+
+    @OneToMany(mappedBy = "cliente")
+    private List<Descarte> descartes = new ArrayList<>();
 
     // private Foto fotoPerfil;
 

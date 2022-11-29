@@ -10,6 +10,7 @@ import com.tecnoo.helpdesk.Exceptions.ExceptionsModels.ResourceNotFoundException
 import com.tecnoo.helpdesk.Models.Cliente;
 import com.tecnoo.helpdesk.Models.Ticket;
 import com.tecnoo.helpdesk.Models.Dtos.TicketDTO;
+import com.tecnoo.helpdesk.Models.Enums.Status;
 import com.tecnoo.helpdesk.Repositories.ClienteRepository;
 import com.tecnoo.helpdesk.Repositories.TicketRepository;
 
@@ -34,8 +35,8 @@ public class TicketService {
     }
 
 
-    public List<Ticket> findAllByCliente(){
-        return repository.findByClienteId();
+    public List<Ticket> findAllByCliente(Long id){
+        return repository.findByClienteId(id);
     }
 
     public Ticket create(TicketDTO ticketdto){
@@ -44,11 +45,7 @@ public class TicketService {
         return repository.saveAndFlush(chamadoAserSalvoJaConvertido);
     }
 
-
-   
-
     //Método que atualiza o ticket(chamado)
-
     public Ticket update(TicketDTO ticketDTO){
         Ticket ticketAserAtualizado = findById(ticketDTO.getId());
 
@@ -57,6 +54,18 @@ public class TicketService {
         ticketAserAtualizado.setStatus(ticketDTO.getStatus());
 
         return repository.saveAndFlush(ticketAserAtualizado);
+    }
+
+    //Embora o nome do método seja delete, ele irá apenas alterar o status do chamado para cancelado
+    public void deleteById(Long id){
+        //Verificamos primeiramentoe se existe um chamado com o id que foi nos passado por parametro
+        //O próprio método findById já verifica se existe um chamado, e caso não exista, lançará uma exceção.
+
+        Ticket ticketAserCancelado = findById(id);
+        if(ticketAserCancelado != null){
+            ticketAserCancelado.setStatus(Status.CANCELADO);
+            repository.saveAndFlush(ticketAserCancelado);
+        }
     }
 
 

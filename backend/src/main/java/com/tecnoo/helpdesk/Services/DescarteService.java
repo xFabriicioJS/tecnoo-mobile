@@ -10,6 +10,7 @@ import com.tecnoo.helpdesk.Exceptions.ExceptionsModels.ResourceNotFoundException
 import com.tecnoo.helpdesk.Models.Cliente;
 import com.tecnoo.helpdesk.Models.Descarte;
 import com.tecnoo.helpdesk.Models.Dtos.DescarteDTO;
+import com.tecnoo.helpdesk.Models.Enums.Status;
 import com.tecnoo.helpdesk.Repositories.ClienteRepository;
 import com.tecnoo.helpdesk.Repositories.DescarteRepository;
 
@@ -34,8 +35,20 @@ public class DescarteService {
     }
 
 
-    public List<Descarte> findAllByCliente(){
-        return repository.findByClienteId();
+    public List<Descarte> findAllByCliente(Long id){
+        return repository.findByClienteId(id);
+    }
+
+    //Embora o nome do método seja delete, ele irá apenas alterar o status do descarte para cancelado
+    public void deleteById(Long id){
+        //Verificamos primeiramentoe se existe um descarte com o id que foi nos passado por parametro
+        //O próprio método findById já verifica se existe um descarte, e caso não exista, lançará uma exceção.
+
+        Descarte descarteAserCancelado = findById(id);
+        if(descarteAserCancelado != null){
+            descarteAserCancelado.setStatus(Status.CANCELADO);
+            repository.saveAndFlush(descarteAserCancelado);
+        }
     }
 
     public Descarte create(DescarteDTO descartedto){
@@ -48,7 +61,6 @@ public class DescarteService {
    
 
     //Método que atualiza o descarte
-
     public Descarte update(DescarteDTO descarteDTO){
         Descarte descarteAserAtualizado = findById(descarteDTO.getId());
 
@@ -72,4 +84,6 @@ public class DescarteService {
 
         return descarte;
     }
+
+
 }

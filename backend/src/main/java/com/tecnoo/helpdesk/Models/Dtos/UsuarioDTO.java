@@ -1,12 +1,14 @@
 package com.tecnoo.helpdesk.Models.Dtos;
 
+import java.util.Set;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.tecnoo.helpdesk.Models.Nivel;
 import com.tecnoo.helpdesk.Models.Usuario;
-import com.tecnoo.helpdesk.Models.Enums.Nivel;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -26,7 +28,7 @@ public class UsuarioDTO {
     private String email;
 
     @NotNull(message = "O campo nivel é obrigatório")
-    private Nivel nivel;
+    private Set<Nivel> niveis;
 
     @NotBlank(message = "O campo loginUsuario é obrigatório")
     @Size(min = 5, max = 50, message = "O campo loginUsuario deve ter entre 5 e 50 caracteres")
@@ -45,7 +47,7 @@ public class UsuarioDTO {
     public UsuarioDTO(Usuario usuario) {
         this.id = usuario.getId();
         this.nome = usuario.getNome();
-        this.nivel = usuario.getNivel();
+        this.niveis = usuario.getNiveis();
         this.loginUsuario = usuario.getLoginUsuario();
         this.senha = usuario.getSenha();
     }

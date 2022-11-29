@@ -9,6 +9,6 @@ import com.tecnoo.helpdesk.Models.Descarte;
 
 @Repository
 public interface DescarteRepository extends JpaRepository<Descarte, Long>{
-    //Retorna todos os chamados por cliente
-    List<Descarte> findByClienteId();
+    //Retorna todos os descartes por cliente
+    List<Descarte> findByClienteId(Long id);
 }

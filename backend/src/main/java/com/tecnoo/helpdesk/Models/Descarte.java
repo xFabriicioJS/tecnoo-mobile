@@ -2,11 +2,7 @@ package com.tecnoo.helpdesk.Models;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.tecnoo.helpdesk.Models.Enums.Status;
 
@@ -27,6 +23,7 @@ public class Descarte {
 
     private String nomeHardware;
 
+    @ManyToOne
     private Cliente cliente;
 
     private LocalDateTime dataAbertura = LocalDateTime.now();

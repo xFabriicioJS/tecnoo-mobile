@@ -23,8 +23,8 @@ public class EnderecoService {
         return repository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Endereço não encontrado. Id = " + id));
     }
 
-    public Endereco findByIdCliente(Long id){
-        return repository.findByClienteId();
+    public Endereco findByIdCliente(Long idCliente){
+        return repository.findByClienteId(idCliente);
     }
 
     //Método responsável por criar um endereco e associá-lo a um cliente

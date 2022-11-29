@@ -1,8 +1,9 @@
 package com.tecnoo.helpdesk.Models.Enums;
 
-public enum Plano {
+public enum EPlano {
     BRONZE,
     PRATA,
     OURO,
-    DIAMANTE
+    DIAMANTE,
+    SEM_PLANO
 }

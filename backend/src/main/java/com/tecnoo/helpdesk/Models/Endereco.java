@@ -51,4 +51,7 @@ public class Endereco {
     }
 
 
+    public Endereco() {
+
+    }
 }
