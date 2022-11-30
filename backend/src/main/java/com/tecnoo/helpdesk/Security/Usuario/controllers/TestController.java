@@ -32,8 +32,10 @@ public class TestController {
     }
 
     @GetMapping("/admin")
-    @PreAuthorize("hasRole('ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public String adminAcesso(){
+        System.out.println();
+
         return "Esse é um recurso disponível para apenas administradores";
     }
 

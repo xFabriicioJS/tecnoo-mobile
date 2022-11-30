@@ -5,10 +5,12 @@ import javax.persistence.*;
 import com.tecnoo.helpdesk.Models.Enums.ENivel;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "niveis")
 @Data
+@NoArgsConstructor
 public class Nivel {
     
     @Id
@@ -16,8 +18,9 @@ public class Nivel {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @Column(length = 20)
+    @Column(length = 50)
     private ENivel nome;
+
 
     
     

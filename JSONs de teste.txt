@@ -1,0 +1,32 @@
+Modelos JSON para testes.
+
+
+Endpoint Testes
+
+--TESTE PUBLICO
+** GET -->  http://localhost:8080/api/test/all
+
+--TESTE DE TECNICO
+** GET --> http://localhost:8080/api/test/tecnico
+
+Endpoint Autenticação
+
+--TESTE DE CADASTRO
+
+**POST -> http://localhost:8080/api/auth/cadastro
+
+{
+    "nome": "Fabricio Monteiro",
+    "email": "fabriciocostamonteiro@hotmail.com",
+    "nivel": ["tecnico"],
+    "loginUsuario": "xFabriicio",
+    "senha": "123456"
+}
+
+--TESTE DE LOGIN
+
+**POST -> http://localhost:8080/api/auth/login
+{
+    "loginUsuario": "xFabriicio",
+    "senha": "123456"
+}

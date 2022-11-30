@@ -3,24 +3,17 @@ package com.tecnoo.helpdesk.Models;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-
+import javax.persistence.*;
 
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "tbusuarios")
+@Table(name = "tbusuarios", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "loginUsuario"),
+        @UniqueConstraint(columnNames = "email")
+})
 @Data
 @NoArgsConstructor
 public class Usuario {
@@ -34,12 +27,12 @@ public class Usuario {
     @Column(unique = true)
     private String email;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "usuario_niveis",
     joinColumns = @JoinColumn(name = "usuario_id"),
     inverseJoinColumns = @JoinColumn(name = "nivel_id")
     )
-    private Set<Nivel> niveis = new HashSet<>();
+    private Set<Nivel> niveis = new HashSet<Nivel>();
 
     @Column(unique = true)
     private String loginUsuario;
