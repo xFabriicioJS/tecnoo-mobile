@@ -1,4 +1,4 @@
-package com.tecnoo.helpdesk.Security.Usuario.AuthPayload.request;
+package com.tecnoo.helpdesk.Security.Pessoa.AuthPayload.request;
 
 import javax.validation.constraints.NotBlank;
 

@@ -1,4 +1,4 @@
-package com.tecnoo.helpdesk.Security.Usuario.AuthPayload.response;
+package com.tecnoo.helpdesk.Security.Pessoa.AuthPayload.response;
 
 //Classe auxiliar que ajuda a nos mandar uma mensagem no ResponseEntity
 

@@ -1,4 +1,4 @@
-package com.tecnoo.helpdesk.Security.Usuario.controllers;
+package com.tecnoo.helpdesk.Security.Pessoa.controllers;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,13 +20,13 @@ public class TestController {
 
 
     @GetMapping("/tecnico")
-    @PreAuthorize("hasAnyRole('TECNICO', 'SUPERVISOR', 'ADMINISTRADOR')")
+    @PreAuthorize("hasAnyAuthority('TECNICO', 'SUPERVISOR', 'ADMINISTRADOR')")
     public String tecnicoAcesso(){
         return "Esse é um recurso disponível para apenas técnicos ou superiores";
     }
 
     @GetMapping("/supervisor")
-    @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('SUPERVISOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR') or hasAuthority('SUPERVISOR')")
     public String supervisorAcesso(){
         return "Esse é um recurso disponível para apenas supervisores e administradores";
     }
@@ -40,5 +40,10 @@ public class TestController {
     }
 
 
+    @GetMapping("/cliente")
+    @PreAuthorize("hasAuthority('CLIENTE')")
+    public String clienteAcesso(){
+        return "Esse é um recurso disponível para apenas clientes";
+    }
 
 }

@@ -16,9 +16,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.tecnoo.helpdesk.Security.Usuario.Jwt.AuthEntryPointJwt;
-import com.tecnoo.helpdesk.Security.Usuario.Jwt.AuthTokenFilter;
-import com.tecnoo.helpdesk.Security.Usuario.Services.UsuarioDetailsServiceImpl;
+import com.tecnoo.helpdesk.Security.Pessoa.Jwt.AuthEntryPointJwt;
+import com.tecnoo.helpdesk.Security.Pessoa.Jwt.AuthTokenFilter;
+import com.tecnoo.helpdesk.Security.Pessoa.Services.UsuarioDetailsServiceImpl;
 
 
 @Configuration
@@ -41,10 +41,13 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
   @Bean
   public DaoAuthenticationProvider authenticationProvider() {
       DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-       
+
+
       authProvider.setUserDetailsService(userDetailsService);
       authProvider.setPasswordEncoder(passwordEncoder());
-   
+
+      System.out.println("Teste!");
+
       return authProvider;
   }
 

@@ -4,5 +4,7 @@ public enum ENivel {
     ADMINISTRADOR,
     SUPERVISOR,
     TECNICO,
-    DESLIGADO
+    DESLIGADO,
+    CLIENTE,
+
 }

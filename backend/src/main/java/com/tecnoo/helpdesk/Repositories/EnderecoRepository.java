@@ -8,5 +8,7 @@ import com.tecnoo.helpdesk.Models.Endereco;
 @Repository
 public interface EnderecoRepository extends JpaRepository<Endereco, Long> {
 
+/*
     Endereco findByClienteId(Long id);
+*/
 }

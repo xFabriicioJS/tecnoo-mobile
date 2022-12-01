@@ -10,7 +10,7 @@ import org.hibernate.validator.constraints.br.CPF;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.tecnoo.helpdesk.Models.Cliente;
-import com.tecnoo.helpdesk.Models.Endereco;
+
 
 import lombok.Getter;
 import lombok.Setter;
@@ -50,12 +50,16 @@ public class ClienteDTO {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String senha;
 
-    private Endereco endereco;
+    @NotNull
+    @NotBlank(message = "Endereço é obrigatório")
+    private EnderecoDTO endereco;
 
     // private Foto fotoPerfil;
 
     public ClienteDTO() {
     }
+
+
     
     //construtor para a conversão de um cliente para um clienteDTO
     public ClienteDTO(Cliente cliente){
@@ -68,8 +72,9 @@ public class ClienteDTO {
         this.idTipo = cliente.getIdTipo();
         this.email = cliente.getEmail();
         this.senha = cliente.getSenha();
-        this.endereco = cliente.getEndereco();
+        this.endereco = new EnderecoDTO(cliente.getEndereco());
     }
+
 
 
 }

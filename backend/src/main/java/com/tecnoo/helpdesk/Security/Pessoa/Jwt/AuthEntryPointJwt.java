@@ -1,4 +1,4 @@
-package com.tecnoo.helpdesk.Security.Usuario.Jwt;
+package com.tecnoo.helpdesk.Security.Pessoa.Jwt;
 import java.io.IOException;
 
 import javax.servlet.ServletException;

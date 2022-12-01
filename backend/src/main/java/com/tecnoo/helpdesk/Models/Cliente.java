@@ -3,50 +3,33 @@ package com.tecnoo.helpdesk.Models;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-import com.tecnoo.helpdesk.Models.Dtos.ClienteDTO;
 
+import com.tecnoo.helpdesk.Models.Dtos.EnderecoDTO;
 import lombok.Data;
 
 @Entity @Table (name = "tbclientes") @Data
-public class Cliente {
+public class Cliente extends Pessoa{
 
     public Cliente(){}
 
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String nome;
-
     @Column(unique = true)
     private String cpf;
 
-  
+
     private String telefone;
 
-    
+
     private String cnpj;
 
- 
+
     private String razaoSocial;
 
     private Long idTipo;
 
-    @Column(unique = true)
-    private String email;
-
-    private String senha;
-
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Endereco endereco;
 
     @OneToOne
@@ -60,14 +43,16 @@ public class Cliente {
 
     // private Foto fotoPerfil;
 
-    public Cliente(ClienteDTO clienteDTO) {
-        this.nome = clienteDTO.getNome();
-        this.cpf = clienteDTO.getCpf();
-        this.telefone = clienteDTO.getTelefone();
-        this.cnpj = clienteDTO.getCnpj();
-        this.razaoSocial = clienteDTO.getRazaoSocial();
-        this.idTipo = clienteDTO.getIdTipo();
-        this.email = clienteDTO.getEmail();
+
+    public Cliente( String nome, String email, String loginUsuario, String senha, String cpf, String telefone,
+                   String cnpj, String razaoSocial, Long idTipo, EnderecoDTO endereco){
+        super(nome, email, loginUsuario, senha);
+        this.cpf = cpf;
+        this.telefone = telefone;
+        this.cnpj = cnpj;
+        this.razaoSocial = razaoSocial;
+        this.idTipo = idTipo;
+        this.endereco = new Endereco(endereco);
     }
 
 }

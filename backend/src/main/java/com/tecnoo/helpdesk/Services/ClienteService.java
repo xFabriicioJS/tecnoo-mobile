@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import com.tecnoo.helpdesk.Models.Endereco;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -56,7 +57,7 @@ public class ClienteService {
         clienteAserAtualizado.setEmail(cliente.getEmail());
         clienteAserAtualizado.setRazaoSocial(cliente.getRazaoSocial());
         clienteAserAtualizado.setTelefone(cliente.getTelefone());
-        clienteAserAtualizado.setEndereco(cliente.getEndereco());
+        clienteAserAtualizado.setEndereco(new Endereco(cliente.getEndereco()));
 
         return repository.saveAndFlush(clienteAserAtualizado);
     }

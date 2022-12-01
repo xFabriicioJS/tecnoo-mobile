@@ -8,6 +8,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.tecnoo.helpdesk.Models.Dtos.EnderecoDTO;
 import lombok.Data;
 
 @Entity
@@ -19,9 +20,9 @@ public class Endereco {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(mappedBy = "endereco")
+/*    @OneToOne(mappedBy = "endereco")
     @NotNull
-    private Cliente cliente;
+    private Cliente cliente;*/
 
     private String cep;
 
@@ -39,8 +40,10 @@ public class Endereco {
     private String estado;
 
 
-    public Endereco(Cliente cliente, String cep, String logradouro, String numero, String complemento, String bairro, String cidade, String estado){
+    public Endereco( String cep, String logradouro, String numero, String complemento, String bairro, String cidade, String estado){
+/*
         this.cliente = cliente;
+*/
         this.cep = cep;
         this.logradouro = logradouro;
         this.numero = numero;
@@ -48,6 +51,18 @@ public class Endereco {
         this.bairro = bairro;
         this.cidade = cidade;
         this.estado = estado;
+    }
+
+    //Construtor que converte um Endereco em EnderecoDTO
+    public Endereco(EnderecoDTO enderecoDTO){
+     /*   this.cliente = enderecoDTO.findClienteById(enderecoDTO.getIdCliente());*/
+        this.cep = enderecoDTO.getCep();
+        this.logradouro = enderecoDTO.getLogradouro();
+        this.numero = enderecoDTO.getNumero();
+        this.complemento = enderecoDTO.getComplemento();
+        this.bairro = enderecoDTO.getBairro();
+        this.cidade = enderecoDTO.getCidade();
+        this.estado = enderecoDTO.getEstado();
     }
 
 

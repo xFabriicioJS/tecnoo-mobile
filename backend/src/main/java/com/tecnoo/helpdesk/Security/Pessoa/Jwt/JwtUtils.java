@@ -1,4 +1,4 @@
-package com.tecnoo.helpdesk.Security.Usuario.Jwt;
+package com.tecnoo.helpdesk.Security.Pessoa.Jwt;
 
 import java.util.Date;
 
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-import com.tecnoo.helpdesk.Security.Usuario.Services.UsuarioDetailsImpl;
+import com.tecnoo.helpdesk.Security.Pessoa.Services.UsuarioDetailsImpl;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;

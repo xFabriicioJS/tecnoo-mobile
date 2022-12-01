@@ -1,4 +1,4 @@
-package com.tecnoo.helpdesk.Security.Usuario.Jwt;
+package com.tecnoo.helpdesk.Security.Pessoa.Jwt;
 
 import java.io.IOException;
 
@@ -17,7 +17,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.tecnoo.helpdesk.Security.Usuario.Services.UsuarioDetailsServiceImpl;
+import com.tecnoo.helpdesk.Security.Pessoa.Services.UsuarioDetailsServiceImpl;
 
 //Classe responsável por gerenciar as requisições e tamb´ém o token de resposta
 

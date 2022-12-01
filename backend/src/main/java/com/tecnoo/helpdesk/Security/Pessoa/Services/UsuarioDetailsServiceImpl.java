@@ -1,5 +1,8 @@
-package com.tecnoo.helpdesk.Security.Usuario.Services;
+package com.tecnoo.helpdesk.Security.Pessoa.Services;
 
+import com.tecnoo.helpdesk.Models.Pessoa;
+import com.tecnoo.helpdesk.Repositories.ClienteRepository;
+import com.tecnoo.helpdesk.Repositories.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,15 +16,17 @@ import com.tecnoo.helpdesk.Repositories.UsuarioRepository;
 public class UsuarioDetailsServiceImpl implements UserDetailsService{
 
     @Autowired
-    private UsuarioRepository repository;
+    private PessoaRepository repository;
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Usuario usuario = repository.findByLoginUsuario(username).orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado com esse login:  " + username));
+        Pessoa pessoa = repository.findByLoginUsuario(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado com esse login:  " + username));
 
     
         //retornará um userDetails
-        return UsuarioDetailsImpl.build(usuario); 
+        return UsuarioDetailsImpl.build(pessoa);
     }
     
 }

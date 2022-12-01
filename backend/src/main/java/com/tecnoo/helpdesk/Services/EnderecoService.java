@@ -23,9 +23,9 @@ public class EnderecoService {
         return repository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Endereço não encontrado. Id = " + id));
     }
 
-    public Endereco findByIdCliente(Long idCliente){
+/*    public Endereco findByIdCliente(Long idCliente){
         return repository.findByClienteId(idCliente);
-    }
+    }*/
 
     //Método responsável por criar um endereco e associá-lo a um cliente
     public Endereco create(EnderecoDTO enderecoDto){
@@ -43,12 +43,10 @@ public class EnderecoService {
     //Método que converte um enderecoDTO em Endereco
     public Endereco convertFromDtoAndSave(EnderecoDTO enderecoDTO){
 
-        //pegando uma instancia de cliente
-        Cliente cliente = clienteRepository.findById(enderecoDTO.getIdCliente()).orElseThrow(()-> new ResourceNotFoundException("Cliente não encontrado. Id " + enderecoDTO.getIdCliente()));
 
 
-        Endereco endereco = new Endereco(cliente, enderecoDTO.getCep(), enderecoDTO.getLogradouro(), enderecoDTO.getNumero(), enderecoDTO.getComplemento(), enderecoDTO.getBairro(), enderecoDTO.getCidade(), enderecoDTO.getEstado());
+        Endereco endereco = new Endereco(enderecoDTO.getCep(), enderecoDTO.getLogradouro(), enderecoDTO.getNumero(), enderecoDTO.getComplemento(), enderecoDTO.getBairro(), enderecoDTO.getCidade(), enderecoDTO.getEstado());
 
-        return repository.saveAndFlush(endereco);
+        return repository.save(endereco);
     }
 }

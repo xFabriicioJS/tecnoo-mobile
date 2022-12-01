@@ -1,4 +1,4 @@
-package com.tecnoo.helpdesk.Security.Usuario.controllers;
+package com.tecnoo.helpdesk.Security.Pessoa.controllers;
 
 import java.util.HashSet;
 import java.util.List;
@@ -7,6 +7,11 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import com.tecnoo.helpdesk.Models.Cliente;
+
+import com.tecnoo.helpdesk.Repositories.ClienteRepository;
+import com.tecnoo.helpdesk.Repositories.PessoaRepository;
+import com.tecnoo.helpdesk.Security.Pessoa.AuthPayload.request.SignupRequestCliente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,12 +31,12 @@ import com.tecnoo.helpdesk.Models.Usuario;
 import com.tecnoo.helpdesk.Models.Enums.ENivel;
 import com.tecnoo.helpdesk.Repositories.NivelRepository;
 import com.tecnoo.helpdesk.Repositories.UsuarioRepository;
-import com.tecnoo.helpdesk.Security.Usuario.AuthPayload.request.LoginRequest;
-import com.tecnoo.helpdesk.Security.Usuario.AuthPayload.request.SignupRequest;
-import com.tecnoo.helpdesk.Security.Usuario.AuthPayload.response.JwtResponse;
-import com.tecnoo.helpdesk.Security.Usuario.AuthPayload.response.MessageResponse;
-import com.tecnoo.helpdesk.Security.Usuario.Jwt.JwtUtils;
-import com.tecnoo.helpdesk.Security.Usuario.Services.UsuarioDetailsImpl;
+import com.tecnoo.helpdesk.Security.Pessoa.AuthPayload.request.LoginRequest;
+import com.tecnoo.helpdesk.Security.Pessoa.AuthPayload.request.SignupRequest;
+import com.tecnoo.helpdesk.Security.Pessoa.AuthPayload.response.JwtResponse;
+import com.tecnoo.helpdesk.Security.Pessoa.AuthPayload.response.MessageResponse;
+import com.tecnoo.helpdesk.Security.Pessoa.Jwt.JwtUtils;
+import com.tecnoo.helpdesk.Security.Pessoa.Services.UsuarioDetailsImpl;
 
 //Classe que gerencia as requisições para os endpoints de autenticação.
 
@@ -46,15 +51,54 @@ public class AuthController {
     UsuarioRepository usuarioRepository;
 
     @Autowired
+    PessoaRepository pessoaRepository;
+
+    @Autowired
     NivelRepository nivelRepository;
 
     @Autowired
     PasswordEncoder encoder;
 
     @Autowired
+    ClienteRepository clienteRepository;
+
+    @Autowired
     JwtUtils jwtUtils;
 
-    @PostMapping("/signin")
+    @PostMapping("/cliente/signin")
+    public ResponseEntity<?> authenticateCliente(@Valid @RequestBody LoginRequest loginRequest){
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(loginRequest.getLoginUsuario(), loginRequest.getSenha()));
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwtString = jwtUtils.generateJwtToken(authentication);
+
+
+        UsuarioDetailsImpl detalhesCliente = (UsuarioDetailsImpl) authentication.getPrincipal();
+
+        List<String> niveis = detalhesCliente.getAuthorities().stream().map(nivel -> nivel.getAuthority())
+                .collect(Collectors.toList());
+
+
+        //Retornará um ResponseEntity com todas as informações do cliente
+        return ResponseEntity.ok(new JwtResponse(
+                jwtString,
+                detalhesCliente.getId(),
+                detalhesCliente.getUsername(),
+                detalhesCliente.getEmail(),
+                detalhesCliente.getNome(),
+                niveis,
+                detalhesCliente.getCpf(),
+                detalhesCliente.getTelefone(),
+                detalhesCliente.getCnpj(),
+                detalhesCliente.getRazaoSocial(),
+                detalhesCliente.getIdTipo(),
+                detalhesCliente.getEndereco(),
+                detalhesCliente.getPlano()
+        ));
+    }
+
+    @PostMapping("/usuario/signin")
     public ResponseEntity<?> authenticateUsuario(@Valid @RequestBody LoginRequest loginRequest){
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getLoginUsuario(), loginRequest.getSenha()));
@@ -70,26 +114,71 @@ public class AuthController {
             
                 
                 //Retornará um ResponseEntity com todas as informações do usuário
-                return ResponseEntity.ok(new JwtResponse(jwtString, detalhesUsuario.getId(),
+                return ResponseEntity.ok(new JwtResponse(jwtString,
+                        detalhesUsuario.getId(),
                         detalhesUsuario.getLoginUsuario(),
-                        detalhesUsuario.getEmail(), niveis,
+                        detalhesUsuario.getEmail(),
+                        niveis,
                         detalhesUsuario.getNome()
                 ));
 
     }
 
-    @PostMapping("/cadastro")
+    @PostMapping("/cliente/cadastro")
+    public ResponseEntity<?> registerCliente(@Valid @RequestBody SignupRequestCliente signupRequestCliente){
+
+        //Fazendo algumas validações, por exemplo, se existem clientes já cadastrados com o "login" informado,
+        // ou com o email informado
+        if(pessoaRepository.existsByLoginUsuario(signupRequestCliente.getLoginUsuario())){
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Esse login de usuário já está em uso!"));
+        }
+
+
+        if(pessoaRepository.existsByEmail(signupRequestCliente.getEmail())){
+            return ResponseEntity
+                    .badRequest()
+                    .body("Já existe um usuário cadastrado com esse email, por favor tente outro!");
+        }
+
+        //Caso passe em todas as validações, prosseguimos com o código.
+
+        //Instanciamos um cliente
+        Cliente cliente = new Cliente(signupRequestCliente.getNome(), signupRequestCliente.getEmail(),
+                signupRequestCliente.getLoginUsuario(),
+                encoder.encode(signupRequestCliente.getSenha()), signupRequestCliente.getCpf(),
+                signupRequestCliente.getTelefone(),
+                signupRequestCliente.getCnpj(), signupRequestCliente.getRazaoSocial(), signupRequestCliente.getIdTipo(),
+                signupRequestCliente.getEndereco());
+
+        Set<Nivel> niveis = new HashSet<>();
+        Nivel nivelCliente = nivelRepository.findByNome(ENivel.CLIENTE).orElseThrow(
+                ()->new ResourceNotFoundException("Nível cliente não encontrado")
+        );
+
+        niveis.add(nivelCliente);
+        //Atribuimos os seus niveis
+        cliente.setNiveis(niveis);
+
+        clienteRepository.save(cliente);
+        //Retornamos um 200 OK
+        return ResponseEntity.ok(new MessageResponse("Cliente registrado com sucesso"));
+
+    }
+
+    @PostMapping("/usuario/cadastro")
     public ResponseEntity<?> registerUsuario(@Valid @RequestBody SignupRequest signupRequest){
 
-        //Fazendo algumas validações, como por exemplo, se existem usuários já cadastrados com o login informado,
+        //Fazendo algumas validações, por exemplo, se existem usuários já cadastrados com o login informado,
         // ou com o email informado
-        if(usuarioRepository.existsByLoginUsuario(signupRequest.getLoginUsuario())){
+        if(pessoaRepository.existsByLoginUsuario(signupRequest.getLoginUsuario())){
             return ResponseEntity
             .badRequest()
             .body(new MessageResponse("Esse login de usuário já está em uso!"));
         }
 
-        if(usuarioRepository.existsByEmail(signupRequest.getEmail())){
+        if(pessoaRepository.existsByEmail(signupRequest.getEmail())){
             return ResponseEntity
             .badRequest()
             .body("Já existe um usuário cadastrado com esse email, por favor tente outro!");
