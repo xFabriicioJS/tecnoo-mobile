@@ -26,7 +26,7 @@ public class DescarteService {
     public Descarte findById(Long id){
         Optional<Descarte> descarte = repository.findById(id);
 
-        return descarte.orElseThrow(()-> new ResourceNotFoundException("Chamado não encontrado. Id = " + id + " Classe: " + Descarte.class.getName()));
+        return descarte.orElseThrow(()-> new ResourceNotFoundException("Descarte não encontrado. Id = " + id + " Classe: " + Descarte.class.getName()));
     
     }
 
@@ -75,7 +75,9 @@ public class DescarteService {
      public Descarte convertDTOtoDescarte(DescarteDTO descarteDto){
         Descarte descarte = new Descarte();
 
-        Cliente cliente = clienteRepository.findById(descarteDto.getIdCliente()).orElseThrow(()-> new ResourceNotFoundException("Cliente não encontrado. Id " + descarteDto.getIdCliente()));
+        Cliente cliente = clienteRepository.findById(descarteDto.getIdCliente())
+                .orElseThrow(()-> new ResourceNotFoundException("O Cliente desse descarte não foi encontrado. Id "
+                        + descarteDto.getIdCliente()));
 
         descarte.setNomeHardware(descarteDto.getNomeHardware());
         descarte.setCliente(cliente);

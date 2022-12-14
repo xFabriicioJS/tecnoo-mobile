@@ -13,6 +13,7 @@ import com.tecnoo.helpdesk.Repositories.ClienteRepository;
 import com.tecnoo.helpdesk.Repositories.PessoaRepository;
 import com.tecnoo.helpdesk.Security.Pessoa.AuthPayload.request.SignupRequestCliente;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -130,16 +131,12 @@ public class AuthController {
         //Fazendo algumas validações, por exemplo, se existem clientes já cadastrados com o "login" informado,
         // ou com o email informado
         if(pessoaRepository.existsByLoginUsuario(signupRequestCliente.getLoginUsuario())){
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Esse login de usuário já está em uso!"));
+            throw new DataIntegrityViolationException("Esse login de usuário já está em uso!");
         }
 
 
         if(pessoaRepository.existsByEmail(signupRequestCliente.getEmail())){
-            return ResponseEntity
-                    .badRequest()
-                    .body("Já existe um usuário cadastrado com esse email, por favor tente outro!");
+            throw new DataIntegrityViolationException("Esse email já pertence a um outro usuário");
         }
 
         //Caso passe em todas as validações, prosseguimos com o código.
