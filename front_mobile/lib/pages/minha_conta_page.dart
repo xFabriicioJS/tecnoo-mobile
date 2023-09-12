@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:front_mobile/components/card_descarte.dart';
 import 'package:front_mobile/components/card_saiba_mais_descarte.dart';
 import 'package:front_mobile/components/help_about.dart';
 
@@ -61,10 +60,10 @@ class MinhaContaPage extends StatelessWidget {
                 ),
               ),
             ),
-            Card(
+            const Card(
               elevation: 8,
               child: Column(
-                children: const [
+                children: [
                   ListTile(
                     leading: Icon(
                       Icons.account_circle_rounded,

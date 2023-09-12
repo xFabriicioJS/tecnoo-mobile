@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:front_mobile/components/card_chamado.dart';
-import 'package:front_mobile/components/card_descarte.dart';
 import 'package:front_mobile/components/card_saiba_mais_descarte.dart';
+import 'package:front_mobile/components/card_service.dart';
 import 'package:front_mobile/components/help_about.dart';
 import 'package:front_mobile/components/services_count_widget.dart';
 
@@ -40,7 +39,7 @@ class DescartesPage extends StatelessWidget {
                   print('teste');
                 },
               ),
-              CardSaibaMaisDescarte(
+              const CardSaibaMaisDescarte(
                 title: 'Quero fazer um descarte',
                 color: Colors.blueAccent,
                 icon: Icons.recycling_rounded,
@@ -50,7 +49,7 @@ class DescartesPage extends StatelessWidget {
           const HelpAbout(
               icon: Icons.info_rounded,
               helpText: 'Toque sobre um descarte para visualizar detalhes.'),
-          const CardDescarte(),
+          const CardService(),
         ]),
       ),
     );

@@ -1,36 +1,37 @@
 import 'package:flutter/material.dart';
 
 // stores ExpansionPanel state information
-class Item {
-  Item({
-    required this.expandedValue,
+class CardInfo {
+  String headerValue;
+  String expandedValue;
+  bool isExpanded;
+
+  CardInfo({
     required this.headerValue,
+    required this.expandedValue,
     this.isExpanded = false,
   });
-
-  String expandedValue;
-  String headerValue;
-  bool isExpanded;
 }
 
-List<Item> generateItems(int numberOfItems) {
-  return List<Item>.generate(numberOfItems, (int index) {
-    return Item(
+// generates random number of service cards
+List<CardInfo> generateItems(int numberOfItems) {
+  return List<CardInfo>.generate(numberOfItems, (int index) {
+    return CardInfo(
       headerValue: 'Panel $index',
-      expandedValue: 'This is item number $index',
+      expandedValue: 'Data de abertura $index',
     );
   });
 }
 
-class ChamadoCard extends StatefulWidget {
-  const ChamadoCard({super.key});
+class CardService extends StatefulWidget {
+  const CardService({super.key});
 
   @override
-  State<ChamadoCard> createState() => _ChamadoCardState();
+  State<CardService> createState() => _CardServiceState();
 }
 
-class _ChamadoCardState extends State<ChamadoCard> {
-  final List<Item> _data = generateItems(8);
+class _CardServiceState extends State<CardService> {
+  final List<CardInfo> _data = generateItems(8);
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +55,7 @@ class _ChamadoCardState extends State<ChamadoCard> {
             _data[index].isExpanded = !isExpanded;
           });
         },
-        children: _data.map<ExpansionPanel>((Item item) {
+        children: _data.map<ExpansionPanel>((CardInfo item) {
           return ExpansionPanel(
             headerBuilder: (BuildContext context, bool isExpanded) {
               return ListTile(
@@ -68,17 +69,11 @@ class _ChamadoCardState extends State<ChamadoCard> {
                   item.headerValue,
                   style: const TextStyle(fontWeight: FontWeight.w500),
                 ),
-                onTap: () {},
-                subtitle: const Text('Data de abertura do chamado'),
               );
             },
             body: ListTile(
-                title: Text(item.expandedValue),
-                subtitle: const Text('Descrição do chamado'),
-                trailing: const Icon(Icons.more_rounded),
-                onTap: () {
-                  print('Navegando para visualizar-chamado');
-                }),
+              title: Text(item.expandedValue),
+            ),
             isExpanded: item.isExpanded,
           );
         }).toList(),

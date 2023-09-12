@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:front_mobile/components/card_chamado.dart';
+import 'package:front_mobile/components/card_service.dart';
 import 'package:front_mobile/components/help_about.dart';
 import 'package:front_mobile/components/services_count_widget.dart';
 
@@ -25,9 +25,9 @@ class ChamadosPage extends StatelessWidget {
             Colors.deepPurple,
           ],
         )),
-        child: SingleChildScrollView(
+        child: const SingleChildScrollView(
           child: Column(children: [
-            const Padding(
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: Text(
                 'Meus chamados',
@@ -40,7 +40,7 @@ class ChamadosPage extends StatelessWidget {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
+              children: [
                 ServicesCount(
                   title: 'Chamados abertos',
                   color: Colors.greenAccent,
@@ -53,10 +53,10 @@ class ChamadosPage extends StatelessWidget {
                 ),
               ],
             ),
-            const HelpAbout(
+            HelpAbout(
                 icon: Icons.info_rounded,
-                helpText: 'Toque sobre um chamado para visuzlizar detalhes.'),
-            const ChamadoCard(),
+                helpText: 'Toque sobre um chamado para visualizar detalhes.'),
+            CardService(),
           ]),
         ),
       ),

@@ -21,18 +21,20 @@ class HelpAbout extends StatelessWidget {
           width: MediaQuery.of(context).size.width * .80,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(
                 icon,
                 color: Colors.black,
               ),
-              Text(
-                helpText,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15,
-                  color: Colors.black87,
+              Padding(
+                padding: const EdgeInsets.only(top: 15),
+                child: Text(
+                  helpText,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                    color: Colors.black87,
+                  ),
                 ),
               )
             ],
