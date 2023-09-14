@@ -11,15 +11,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         brightness: Brightness.light,
-        primaryColor: Colors.purpleAccent,
+        primaryColor: const Color.fromARGB(255, 73, 4, 85),
         fontFamily: 'Roboto',
         textTheme: const TextTheme(
-            headline1: TextStyle(fontSize: 72, fontWeight: FontWeight.bold),
-            bodyText1: TextStyle(fontWeight: FontWeight.w700),
-            labelMedium: TextStyle(
-              fontWeight: FontWeight.w600,
-              color: Colors.grey,
-            )),
+          displayLarge: TextStyle(fontSize: 72, fontWeight: FontWeight.bold),
+          bodyLarge: TextStyle(fontWeight: FontWeight.w700),
+          labelMedium: TextStyle(
+            fontWeight: FontWeight.w600,
+          ),
+        ),
       ),
       home: const TabControllerWidget(),
     );

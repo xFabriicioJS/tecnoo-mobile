@@ -59,17 +59,21 @@ class _CardServiceState extends State<CardService> {
           return ExpansionPanel(
             headerBuilder: (BuildContext context, bool isExpanded) {
               return ListTile(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                leading: const CircleAvatar(
-                  child: Icon(Icons.construction_rounded),
-                ),
-                title: Text(
-                  item.headerValue,
-                  style: const TextStyle(fontWeight: FontWeight.w500),
-                ),
-              );
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  leading: const CircleAvatar(
+                    child: Icon(Icons.construction_rounded),
+                  ),
+                  title: Text(
+                    item.headerValue,
+                    style: const TextStyle(fontWeight: FontWeight.w500),
+                  ),
+                  onTap: (() {
+                    setState(() {
+                      item.isExpanded = !item.isExpanded;
+                    });
+                  }));
             },
             body: ListTile(
               title: Text(item.expandedValue),

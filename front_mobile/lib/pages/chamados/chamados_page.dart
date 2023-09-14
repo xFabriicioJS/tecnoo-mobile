@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:front_mobile/components/card_service.dart';
+import 'package:front_mobile/components/elements/floating_add_button.dart';
 import 'package:front_mobile/components/help_about.dart';
 import 'package:front_mobile/components/services_count_widget.dart';
+import 'package:front_mobile/pages/chamados/addchamado_page.dart';
 
 class ChamadosPage extends StatelessWidget {
   const ChamadosPage({super.key});
@@ -9,11 +11,8 @@ class ChamadosPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        elevation: 8,
-        backgroundColor: Colors.purple,
-        onPressed: () {},
-        child: const Icon(Icons.add),
+      floatingActionButton: FloatingAddButton(
+        page: AddChamadoPage(),
       ),
       body: Container(
         decoration: const BoxDecoration(
@@ -21,7 +20,7 @@ class ChamadosPage extends StatelessWidget {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            Colors.purple,
+            Color.fromARGB(255, 73, 4, 85),
             Colors.deepPurple,
           ],
         )),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:front_mobile/pages/chamados_page.dart';
+import 'package:front_mobile/pages/chamados/chamados_page.dart';
 import 'package:front_mobile/pages/descartes_page.dart';
 import 'package:front_mobile/pages/minha_conta_page.dart';
 
@@ -14,34 +14,42 @@ class TabControllerWidget extends StatelessWidget {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.purple,
-          bottom: TabBar(
-            indicator: BoxDecoration(
-              color: Colors.lightBlue,
-              borderRadius: BorderRadius.circular(50),
-            ),
-            tabs: const [
+          backgroundColor: const Color.fromARGB(255, 73, 4, 85),
+          bottom: const TabBar(
+            indicatorColor: Colors.white,
+            tabs: [
               Tab(
                 icon: Icon(
                   Icons.construction_rounded,
                   size: 30,
+                  color: Colors.white,
                 ),
               ),
               Tab(
                 icon: Icon(
                   Icons.recycling_rounded,
                   size: 30,
+                  color: Colors.white,
                 ),
               ),
               Tab(
                 icon: Icon(
                   Icons.account_circle_rounded,
                   size: 30,
+                  color: Colors.white,
                 ),
               ),
             ],
           ),
-          title: const Center(child: Text('Tecnoo')),
+          title: const Center(
+            child: Text(
+              'Tecnoo',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
         ),
         body: const TabBarView(
           children: [
