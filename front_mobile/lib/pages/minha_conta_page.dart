@@ -35,8 +35,9 @@ class MinhaContaPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CircleAvatar(
-                      backgroundImage: const NetworkImage(
-                          'https://www.w3schools.com/howto/img_avatar.png'),
+                      backgroundImage: Image.asset(
+                        'assets/images/img_avatar.png',
+                      ).image,
                       radius: MediaQuery.of(context).size.width * .25,
                     ),
                     Container(
@@ -44,7 +45,7 @@ class MinhaContaPage extends StatelessWidget {
                       child: const Text(
                         'Fabricio Monteiro',
                         style: TextStyle(
-                          fontSize: 25,
+                          fontSize: 24,
                           fontWeight: FontWeight.w700,
                           color: Colors.black,
                         ),

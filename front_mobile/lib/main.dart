@@ -10,6 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
+        useMaterial3: true,
         brightness: Brightness.light,
         primaryColor: const Color.fromARGB(255, 73, 4, 85),
         fontFamily: 'Roboto',
