@@ -3,14 +3,14 @@ import 'package:front_mobile/components/elements/custom_button_elevated.dart';
 import 'package:front_mobile/components/help_about.dart';
 import 'package:front_mobile/mixins/validations_mixins.dart';
 
-class AddChamadoPage extends StatefulWidget with ValidationsMixin {
-  const AddChamadoPage({super.key});
+class AddDescarte extends StatefulWidget with ValidationsMixin {
+  const AddDescarte({super.key});
 
   @override
-  State<AddChamadoPage> createState() => _AddChamadoPageState();
+  State<AddDescarte> createState() => _AddDescarteState();
 }
 
-class _AddChamadoPageState extends State<AddChamadoPage> {
+class _AddDescarteState extends State<AddDescarte> {
   final _formKey = GlobalKey<FormState>();
   final dropValue = ValueNotifier('');
   final equipConditions = [
@@ -28,8 +28,14 @@ class _AddChamadoPageState extends State<AddChamadoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_rounded),
+          onPressed: () {
+            Navigator.of(context).pushReplacementNamed("/");
+          },
+        ),
         title: const Text(
-          'Adicionar novo chamado',
+          'Solicitar novo descarte',
           textAlign: TextAlign.center,
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
@@ -50,7 +56,7 @@ class _AddChamadoPageState extends State<AddChamadoPage> {
             const HelpAbout(
                 icon: Icons.info_rounded,
                 helpText:
-                    'Insira os dados abaixo para solicitar um novo chamado'),
+                    'Insira os dados abaixo para solicitar um novo descarte'),
             Form(
               key: _formKey,
               child: Padding(
@@ -66,9 +72,9 @@ class _AddChamadoPageState extends State<AddChamadoPage> {
                           alignLabelWithHint: true,
                           icon: Container(
                             margin: const EdgeInsets.only(top: 15),
-                            child: const Icon(Icons.construction_rounded),
+                            child: const Icon(Icons.recycling_rounded),
                           ),
-                          labelText: 'Insira o título do chamado',
+                          labelText: 'Qual hardware deseja descartar?',
                           labelStyle: TextStyle(
                             color: Theme.of(context).primaryColor,
                           ),
@@ -88,53 +94,9 @@ class _AddChamadoPageState extends State<AddChamadoPage> {
                           validator: checkEmpty,
                           maxLength: 500,
                           decoration: const InputDecoration.collapsed(
-                              hintText: "Insira aqui a descrição do chamado"),
+                              hintText: "Insira aqui a descrição do descarte"),
                         ),
                       ),
-                    ),
-                    ValueListenableBuilder(
-                      valueListenable: dropValue,
-                      builder: ((context, value, _) {
-                        return SizedBox(
-                          width: MediaQuery.of(context).size.width * .90,
-                          child: DropdownButton<String>(
-                            icon: const Icon(Icons.construction_rounded),
-                            isExpanded: true,
-                            hint: const Text('Estado do equipamento'),
-                            value: (value.isEmpty) ? null : value,
-                            onChanged: (choicedValue) =>
-                                dropValue.value = choicedValue.toString(),
-                            items: equipConditions
-                                .map((option) => DropdownMenuItem(
-                                      value: option,
-                                      child: Text(option),
-                                    ))
-                                .toList(),
-                          ),
-                        );
-                      }),
-                    ),
-                    ValueListenableBuilder(
-                      valueListenable: dropValue,
-                      builder: ((context, value, _) {
-                        return SizedBox(
-                          width: MediaQuery.of(context).size.width * .90,
-                          child: DropdownButton<String>(
-                            icon: const Icon(Icons.house_rounded),
-                            isExpanded: true,
-                            hint: const Text('Como deseja ser atendido?'),
-                            value: (value.isEmpty) ? null : value,
-                            onChanged: (choicedValue) =>
-                                dropValue.value = choicedValue.toString(),
-                            items: serviceAttends
-                                .map((option) => DropdownMenuItem(
-                                      value: option,
-                                      child: Text(option),
-                                    ))
-                                .toList(),
-                          ),
-                        );
-                      }),
                     ),
                     Card(
                         elevation: 8,
@@ -155,9 +117,9 @@ class _AddChamadoPageState extends State<AddChamadoPage> {
                                 ),
                               ),
                               FractionallySizedBox(
-                                widthFactor: 1.0,
-                                child: CustomButtonElevated(formKey: _formKey),
-                              ),
+                                  widthFactor: 1.0,
+                                  child:
+                                      CustomButtonElevated(formKey: _formKey)),
                             ],
                           ),
                         ))

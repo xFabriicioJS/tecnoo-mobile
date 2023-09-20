@@ -61,55 +61,49 @@ class MinhaContaPage extends StatelessWidget {
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width * .90,
-              child: const Card(
+              child: Card(
                 elevation: 8,
-                margin: EdgeInsets.only(top: 10),
+                margin: const EdgeInsets.only(top: 10),
                 child: Column(
                   children: [
                     ListTile(
-                      leading: Icon(
-                        Icons.account_circle_rounded,
+                      leading: const Icon(
+                        Icons.account_circle_outlined,
                         size: 40,
                       ),
-                      title: Text('Configurações da conta'),
-                      subtitle: Text('Email, imagem de perfil, etc.'),
-                      trailing: Icon(Icons.arrow_forward_ios),
+                      title: const Text('Configurações da conta'),
+                      subtitle: const Text('Email, imagem de perfil, etc.'),
+                      onTap: () {
+                        Navigator.of(context).pushNamed("/account");
+                      },
+                      trailing: const Icon(Icons.keyboard_arrow_right_outlined),
                     ),
-                    ListTile(
+                    const ListTile(
                       leading: Icon(
-                        Icons.account_circle_rounded,
-                        size: 40,
-                      ),
-                      title: Text('Configurações da conta'),
-                      subtitle: Text('Email, imagem de perfil, etc.'),
-                      trailing: Icon(Icons.arrow_forward_ios),
-                    ),
-                    ListTile(
-                      leading: Icon(
-                        Icons.bug_report_rounded,
+                        Icons.bug_report_outlined,
                         size: 40,
                       ),
                       title: Text('Informar um problema'),
                       subtitle: Text('Fale conosco para informar um problema.'),
-                      trailing: Icon(Icons.arrow_forward_ios),
+                      trailing: Icon(Icons.keyboard_arrow_right_outlined),
                     ),
-                    ListTile(
+                    const ListTile(
                       leading: Icon(
-                        Icons.business_center_rounded,
+                        Icons.business_center_outlined,
                         size: 40,
                       ),
                       title: Text('Meu contrato'),
                       subtitle: Text('Informações do meu contrato.'),
-                      trailing: Icon(Icons.arrow_forward_ios),
+                      trailing: Icon(Icons.keyboard_arrow_right_outlined),
                     ),
-                    ListTile(
+                    const ListTile(
                       leading: Icon(
-                        Icons.info_rounded,
+                        Icons.info_outlined,
                         size: 40,
                       ),
                       title: Text('Sobre a Tecnoo'),
                       subtitle: Text('Conheça mais sobre a Tecnoo.'),
-                      trailing: Icon(Icons.arrow_forward_ios),
+                      trailing: Icon(Icons.keyboard_arrow_right_outlined),
                     ),
                   ],
                 ),

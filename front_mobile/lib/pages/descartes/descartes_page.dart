@@ -5,6 +5,8 @@ import 'package:front_mobile/components/elements/floating_add_button.dart';
 import 'package:front_mobile/components/help_about.dart';
 import 'package:front_mobile/components/services_count_widget.dart';
 import 'package:front_mobile/pages/chamados/addchamado_page.dart';
+import 'package:front_mobile/pages/descartes/adddescarte_page.dart';
+import 'package:front_mobile/pages/descartes/intro_descartes_page.dart';
 
 class DescartesPage extends StatelessWidget {
   const DescartesPage({super.key});
@@ -12,7 +14,7 @@ class DescartesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingAddButton(page: AddChamadoPage()),
+      floatingActionButton: const FloatingAddButton(page: AddDescarte()),
       body: SingleChildScrollView(
         child: Column(children: [
           const Padding(
@@ -33,13 +35,24 @@ class DescartesPage extends StatelessWidget {
                 color: Colors.deepPurple,
                 icon: Icons.help,
                 onPressed: () {
-                  print('teste');
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => IntroDescartesPage(),
+                    ),
+                  );
                 },
               ),
-              const CardSaibaMaisDescarte(
+              CardSaibaMaisDescarte(
                 title: 'Quero fazer um descarte',
                 color: Colors.blueAccent,
                 icon: Icons.recycling_rounded,
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const AddDescarte(),
+                    ),
+                  );
+                },
               ),
             ],
           ),
