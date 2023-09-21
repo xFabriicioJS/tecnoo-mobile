@@ -17,6 +17,7 @@ class WelcomePage extends StatelessWidget {
         ),
         child: SingleChildScrollView(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Container(
                 margin: const EdgeInsets.only(top: 60),
@@ -26,8 +27,68 @@ class WelcomePage extends StatelessWidget {
                   image: 'assets/images/logonova.png',
                 ),
               ),
-              Container(
-                height: MediaQuery.of(context).size.height * .60,
+              SizedBox(
+                height: MediaQuery.of(context).size.height * .20,
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * .40,
+                width: MediaQuery.of(context).size.width,
+                child: Padding(
+                  // width: 10,
+                  padding: const EdgeInsets.only(
+                      left: 40, right: 40, bottom: 60, top: 0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: const Size(double.infinity, 50),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          backgroundColor: Theme.of(context).primaryColor,
+                        ),
+                        child: const Text(
+                          "LOGIN",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pushNamed('/signup');
+                        },
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: const Size(double.infinity, 50),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        child: const Text(
+                          "CADASTRE-SE",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {},
+                        child: const Text(
+                          "ACESSO PARA ADMINISTRADORES",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w900,
+                            color: Colors.white,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
               )
             ],
           ),

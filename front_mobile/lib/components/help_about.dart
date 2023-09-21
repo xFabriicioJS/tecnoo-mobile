@@ -4,7 +4,8 @@ class HelpAbout extends StatelessWidget {
   final IconData icon;
   final String helpText;
 
-  const HelpAbout({super.key, required this.icon, required this.helpText});
+  const HelpAbout(
+      {super.key, this.icon = Icons.info_rounded, required this.helpText});
 
   @override
   Widget build(BuildContext context) {

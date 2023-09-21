@@ -99,30 +99,30 @@ class _AddDescarteState extends State<AddDescarte> {
                       ),
                     ),
                     Card(
-                        elevation: 8,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.symmetric(
-                                    vertical: 15, horizontal: 0),
-                                child: const Text(
-                                  'Ao enviar a sua solicitação, você concorda com os termos de uso.',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: Colors.red,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                      elevation: 8,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.symmetric(
+                                  vertical: 15, horizontal: 0),
+                              child: const Text(
+                                'Ao enviar a sua solicitação, você concorda com os termos de uso.',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              FractionallySizedBox(
-                                  widthFactor: 1.0,
-                                  child:
-                                      CustomButtonElevated(formKey: _formKey)),
-                            ],
-                          ),
-                        ))
+                            ),
+                            FractionallySizedBox(
+                                widthFactor: 1.0,
+                                child: CustomButtonElevated(formKey: _formKey)),
+                          ],
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),

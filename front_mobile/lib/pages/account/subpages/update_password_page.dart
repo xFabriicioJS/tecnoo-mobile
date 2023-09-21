@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:front_mobile/components/elements/custom_button_elevated.dart';
 import 'package:front_mobile/components/help_about.dart';
 import 'package:front_mobile/mixins/validations_mixins.dart';
 
@@ -18,18 +17,9 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
 
   String? checkPasswordsMatch(String? value) {
     if (value != newPassword.text) {
-      print(value);
-      print(newPassword);
       return "As senhas não coincidem";
     }
     return null;
-  }
-
-  @override
-  void dispose() {
-    newPassword.dispose();
-    confirmPassword.dispose();
-    super.dispose();
   }
 
   String? checkEmpty(value) => widget.isNotEmpy(value);
@@ -39,6 +29,13 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
         () => widget.hasFiveChars(value),
         () => widget.hasSpecialCharacters(value)
       ]);
+
+  @override
+  void dispose() {
+    newPassword.dispose();
+    confirmPassword.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
