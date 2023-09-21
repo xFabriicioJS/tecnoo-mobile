@@ -15,15 +15,16 @@ class ChamadosPage extends StatelessWidget {
         page: AddChamadoPage(),
       ),
       body: Container(
-        decoration: const BoxDecoration(
-            gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Color.fromARGB(255, 73, 4, 85),
-            Colors.deepPurple,
-          ],
-        )),
+        // decoration: const BoxDecoration(
+        //   gradient: LinearGradient(
+        //     begin: Alignment.topCenter,
+        //     end: Alignment.bottomCenter,
+        //     colors: [
+        //       Color.fromARGB(255, 73, 4, 85),
+        //       Colors.deepPurple,
+        //     ],
+        //   ),
+        // ),
         child: const SingleChildScrollView(
           child: Column(children: [
             Padding(
@@ -32,8 +33,8 @@ class ChamadosPage extends StatelessWidget {
                 'Meus chamados',
                 style: TextStyle(
                   fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.black,
                 ),
               ),
             ),

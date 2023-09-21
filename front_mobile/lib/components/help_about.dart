@@ -13,7 +13,7 @@ class HelpAbout extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
-      color: Colors.yellowAccent,
+      color: Colors.yellow,
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: SizedBox(
@@ -31,7 +31,7 @@ class HelpAbout extends StatelessWidget {
                 child: Text(
                   helpText,
                   style: const TextStyle(
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w400,
                     fontSize: 15,
                     color: Colors.black87,
                   ),

@@ -65,6 +65,7 @@ flutter:
     - assets/images/descarte1.jpg
     - assets/images/descarte2.jpg
     - assets/images/descarte3.png
+    - assets/images/logonova.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

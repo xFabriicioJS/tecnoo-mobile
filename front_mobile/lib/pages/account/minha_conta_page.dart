@@ -5,6 +5,13 @@ import 'package:front_mobile/components/help_about.dart';
 class MinhaContaPage extends StatelessWidget {
   const MinhaContaPage({super.key});
 
+  TextStyle defaultTextStyle() {
+    return const TextStyle(
+      fontSize: 18.0,
+      fontWeight: FontWeight.w400,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,41 +76,68 @@ class MinhaContaPage extends StatelessWidget {
                     ListTile(
                       leading: const Icon(
                         Icons.account_circle_outlined,
-                        size: 40,
+                        size: 30,
                       ),
-                      title: const Text('Configurações da conta'),
+                      title: Text(
+                        'Configurações da conta',
+                        style: defaultTextStyle(),
+                      ),
                       subtitle: const Text('Email, imagem de perfil, etc.'),
                       onTap: () {
                         Navigator.of(context).pushNamed("/account");
                       },
                       trailing: const Icon(Icons.keyboard_arrow_right_outlined),
                     ),
-                    const ListTile(
-                      leading: Icon(
+                    ListTile(
+                      leading: const Icon(
                         Icons.bug_report_outlined,
-                        size: 40,
+                        size: 30,
                       ),
-                      title: Text('Informar um problema'),
-                      subtitle: Text('Fale conosco para informar um problema.'),
-                      trailing: Icon(Icons.keyboard_arrow_right_outlined),
+                      title: Text(
+                        'Informar um problema',
+                        style: defaultTextStyle(),
+                      ),
+                      subtitle:
+                          const Text('Fale conosco para informar um problema.'),
+                      trailing: const Icon(Icons.keyboard_arrow_right_outlined),
                     ),
-                    const ListTile(
-                      leading: Icon(
+                    ListTile(
+                      leading: const Icon(
                         Icons.business_center_outlined,
-                        size: 40,
+                        size: 30,
                       ),
-                      title: Text('Meu contrato'),
-                      subtitle: Text('Informações do meu contrato.'),
-                      trailing: Icon(Icons.keyboard_arrow_right_outlined),
+                      title: Text(
+                        'Meu contrato',
+                        style: defaultTextStyle(),
+                      ),
+                      subtitle: const Text('Informações do meu contrato.'),
+                      trailing: const Icon(Icons.keyboard_arrow_right_outlined),
                     ),
-                    const ListTile(
-                      leading: Icon(
+                    ListTile(
+                      leading: const Icon(
                         Icons.info_outlined,
-                        size: 40,
+                        size: 30,
                       ),
-                      title: Text('Sobre a Tecnoo'),
-                      subtitle: Text('Conheça mais sobre a Tecnoo.'),
-                      trailing: Icon(Icons.keyboard_arrow_right_outlined),
+                      title: Text(
+                        'Sobre a Tecnoo',
+                        style: defaultTextStyle(),
+                      ),
+                      subtitle: const Text('Conheça mais sobre a Tecnoo.'),
+                      trailing: const Icon(Icons.keyboard_arrow_right_outlined),
+                    ),
+                    ListTile(
+                      onTap: () {
+                        Navigator.of(context).pushNamed("/welcome-screen");
+                      },
+                      leading: const Icon(
+                        Icons.login_outlined,
+                        size: 30,
+                      ),
+                      title: Text(
+                        'Sair',
+                        style: defaultTextStyle(),
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right_outlined),
                     ),
                   ],
                 ),

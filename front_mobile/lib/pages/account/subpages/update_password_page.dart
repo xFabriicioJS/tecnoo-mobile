@@ -1,11 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:front_mobile/components/elements/custom_button_elevated.dart';
 import 'package:front_mobile/components/help_about.dart';
+import 'package:front_mobile/mixins/validations_mixins.dart';
 
-class UpdateEmailPage extends StatelessWidget {
-  UpdateEmailPage({super.key});
+class UpdatePasswordPage extends StatefulWidget with ValidationsMixin {
+  const UpdatePasswordPage({super.key});
 
+  @override
+  State<UpdatePasswordPage> createState() => _UpdatePasswordPageState();
+}
+
+class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
   final _formKey = GlobalKey<FormState>();
+
+  TextEditingController newPassword = TextEditingController();
+  TextEditingController confirmPassword = TextEditingController();
+
+  String? checkPasswordsMatch(String? value) {
+    if (value != newPassword.text) {
+      print(value);
+      print(newPassword);
+      return "As senhas não coincidem";
+    }
+    return null;
+  }
+
+  @override
+  void dispose() {
+    newPassword.dispose();
+    confirmPassword.dispose();
+    super.dispose();
+  }
+
+  String? checkEmpty(value) => widget.isNotEmpy(value);
+
+  String? checkNewPassword(value) => widget.combine([
+        () => widget.isNotEmpy(value),
+        () => widget.hasFiveChars(value),
+        () => widget.hasSpecialCharacters(value)
+      ]);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +47,7 @@ class UpdateEmailPage extends StatelessWidget {
         backgroundColor: Theme.of(context).primaryColor,
         iconTheme: const IconThemeData(color: Colors.white),
         title: const Text(
-          'Atualizar endereço',
+          'Atualizar senha',
           style: TextStyle(color: Colors.white),
         ),
       ),
@@ -29,7 +62,7 @@ class UpdateEmailPage extends StatelessWidget {
                   child: const HelpAbout(
                       icon: Icons.info,
                       helpText:
-                          "Para atualizar seu endereço de e-mail será necessário informar a sua senha atual"),
+                          "Você precisará informar sua senha atual para atualizar seu endereço de e-mail"),
                 ),
                 Form(
                   key: _formKey,
@@ -42,7 +75,10 @@ class UpdateEmailPage extends StatelessWidget {
                           child: Column(
                             children: [
                               TextFormField(
-                                // validator: checkEmpty,
+                                obscureText: true,
+                                validator: checkEmpty,
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
                                 decoration: InputDecoration(
                                   alignLabelWithHint: true,
                                   labelText: 'Senha atual',
@@ -56,10 +92,14 @@ class UpdateEmailPage extends StatelessWidget {
                                 ),
                               ),
                               TextFormField(
-                                // validator: checkEmpty,
+                                obscureText: true,
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                validator: checkNewPassword,
+                                controller: newPassword,
                                 decoration: InputDecoration(
                                   alignLabelWithHint: true,
-                                  labelText: 'Novo endereço',
+                                  labelText: 'Nova senha',
                                   labelStyle: TextStyle(
                                     color: Theme.of(context).primaryColor,
                                   ),
@@ -70,10 +110,11 @@ class UpdateEmailPage extends StatelessWidget {
                                 ),
                               ),
                               TextFormField(
-                                // validator: checkEmpty,
+                                obscureText: true,
+                                validator: checkPasswordsMatch,
                                 decoration: InputDecoration(
                                   alignLabelWithHint: true,
-                                  labelText: 'Insira novamente o endereço',
+                                  labelText: 'Confirmar nova senha',
                                   labelStyle: TextStyle(
                                     color: Theme.of(context).primaryColor,
                                   ),
@@ -87,31 +128,27 @@ class UpdateEmailPage extends StatelessWidget {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.only(top: 30.0),
                           child: Column(
                             children: [
-                              Container(
-                                margin: const EdgeInsets.symmetric(
-                                    vertical: 30, horizontal: 0),
-                                child: const Card(
-                                  elevation: 2,
-                                  child: Padding(
-                                    padding: EdgeInsets.all(20.0),
-                                    child: Text(
-                                      'Ao atualizar o seu endereço de e-mail, você será redirecionado para a tela de login.',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w300,
-                                      ),
-                                    ),
+                              ElevatedButton(
+                                onPressed: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(const SnackBar(
+                                      content:
+                                          Text('Senha atualizada com sucesso!'),
+                                    ));
+                                  }
+                                },
+                                style: ButtonStyle(
+                                    shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
                                   ),
-                                ),
-                              ),
-                              CustomButtonElevated(
-                                formKey: _formKey,
-                                text: "ATUALIZAR",
-                              ),
+                                )),
+                                child: const Text('Atualizar senha'),
+                              )
                             ],
                           ),
                         )

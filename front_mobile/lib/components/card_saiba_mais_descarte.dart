@@ -35,7 +35,7 @@ class CardSaibaMaisDescarte extends StatelessWidget {
                 title,
                 style: const TextStyle(
                     fontSize: 18,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w400,
                     color: Colors.white),
                 textAlign: TextAlign.center,
               ),

@@ -14,7 +14,7 @@ class AccountSettingsPage extends StatelessWidget {
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.white,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.w400,
           ),
         ),
         backgroundColor: Theme.of(context).primaryColor,
@@ -58,7 +58,7 @@ class AccountSettingsPage extends StatelessWidget {
                             'ALTERAR MINHA IMAGEM DE PERFIL',
                             style: TextStyle(
                               color: Colors.white,
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w400,
                             ),
                           ),
                         ),

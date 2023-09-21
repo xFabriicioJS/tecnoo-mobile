@@ -13,6 +13,14 @@ mixin ValidationsMixin {
     return null;
   }
 
+  String? hasSpecialCharacters(String? value, [String? message]) {
+    if (value != null && !value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+      return message ?? 'Este campo deve  conter caracteres especiais';
+    }
+
+    return null;
+  }
+
   String? combine(List<String? Function()> validators) {
     for (final func in validators) {
       final validation = func();

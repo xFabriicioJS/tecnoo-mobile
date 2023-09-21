@@ -23,7 +23,7 @@ class DescartesPage extends StatelessWidget {
               'Meus descartes',
               style: TextStyle(
                 fontSize: 28,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w400,
               ),
             ),
           ),

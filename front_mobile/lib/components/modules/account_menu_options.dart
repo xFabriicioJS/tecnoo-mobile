@@ -38,6 +38,9 @@ class AccountMenuOptions extends StatelessWidget {
               ),
               subtitle: const Text('******'),
               trailing: const Icon(Icons.keyboard_arrow_right_outlined),
+              onTap: () {
+                Navigator.of(context).pushNamed("/update-password");
+              },
             ),
             ListTile(
               leading: const Icon(
