@@ -1,5 +1,7 @@
 package com.tecnoo.helpdesk.Exceptions;
 
+import lombok.AllArgsConstructor;
+
 //Classe modelo que será apresentada no ResponseEntity do nosso ResourceException Handler
 
 import lombok.Getter;
@@ -9,6 +11,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class StandardError {
 
     private LocalDateTime timestamp;

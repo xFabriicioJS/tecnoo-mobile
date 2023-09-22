@@ -16,7 +16,7 @@ import com.tecnoo.helpdesk.Repositories.UsuarioRepository;
 
 @Service
 public class UsuarioService {
-    
+
     @Autowired
     private UsuarioRepository repository;
 
@@ -34,10 +34,8 @@ public class UsuarioService {
     public Usuario update(Long id, @Valid UsuarioDTO usuario){
         Usuario usuarioAserAtualizado = findById(id);
 
-
-
         //Executando algumas verificações para conferir se o Login e Email passados não são possuidos por outro usuario.
-        
+
         if(findByEmail(usuario.getEmail()) != null && findByEmail(usuario.getEmail()).getId() != id){
             throw new DataIntegrityViolationException("Email já cadastrado no sistema!");
         }
@@ -70,13 +68,6 @@ public class UsuarioService {
             return usuario;
 
         }
-
         return null;
     }
-
-    
-
-    
-
-
 }
