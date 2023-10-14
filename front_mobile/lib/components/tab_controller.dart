@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:front_mobile/pages/chamados/chamados_page.dart';
 import 'package:front_mobile/pages/descartes/descartes_page.dart';
-import 'package:front_mobile/pages/account/minha_conta_page.dart';
+import 'package:front_mobile/pages/account/my_account_page.dart';
 
 class TabControllerWidget extends StatelessWidget {
   const TabControllerWidget({

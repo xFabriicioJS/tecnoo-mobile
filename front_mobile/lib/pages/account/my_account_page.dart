@@ -37,32 +37,34 @@ class MinhaContaPage extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircleAvatar(
-                      backgroundImage: Image.asset(
-                        'assets/images/img_avatar.png',
-                      ).image,
-                      radius: MediaQuery.of(context).size.width * .25,
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 20),
-                      child: const Text(
-                        'Fabricio Monteiro',
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.black,
+                child: Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircleAvatar(
+                        backgroundImage: Image.asset(
+                          'assets/images/img_avatar.png',
+                        ).image,
+                        radius: 100,
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 20),
+                        child: const Text(
+                          'Fabricio Monteiro',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.black,
+                          ),
                         ),
                       ),
-                    ),
-                    Text(
-                      'FA@MONTEIRO',
-                      style: Theme.of(context).textTheme.labelMedium,
-                    )
-                  ],
+                      Text(
+                        'FA@MONTEIRO',
+                        style: Theme.of(context).textTheme.labelMedium,
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
