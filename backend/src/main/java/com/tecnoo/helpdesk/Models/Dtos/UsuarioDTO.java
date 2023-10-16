@@ -50,6 +50,7 @@ public class UsuarioDTO {
         this.niveis = usuario.getNiveis();
         this.loginUsuario = usuario.getLoginUsuario();
         this.senha = usuario.getSenha();
+        this.email = usuario.getEmail();
     }
 
 }

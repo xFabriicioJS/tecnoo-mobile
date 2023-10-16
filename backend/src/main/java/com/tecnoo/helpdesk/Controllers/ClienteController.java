@@ -19,13 +19,13 @@ import com.tecnoo.helpdesk.Services.ClienteService;
 @RequestMapping(value = "/clientes")
 @RestController
 public class ClienteController {
-    
+
     @Autowired
     private ClienteService service;
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<ClienteDTO> findById(@PathVariable Long id){
-        
+    public ResponseEntity<ClienteDTO> findById(@PathVariable Long id) {
+
         Cliente cliente = service.findById(id);
         ClienteDTO clienteDTO = new ClienteDTO(cliente);
 
@@ -33,13 +33,12 @@ public class ClienteController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ClienteDTO>> findAll(){
+    public ResponseEntity<List<ClienteDTO>> findAll() {
 
-        List<ClienteDTO> listaClientes = service.findAll().stream().map((cliente) -> new ClienteDTO(cliente)).collect(Collectors.toList());
+        List<ClienteDTO> listaClientes = service.findAll().stream().map((cliente) -> new ClienteDTO(cliente))
+                .collect(Collectors.toList());
 
         return ResponseEntity.ok().body(listaClientes);
     }
-
-
 
 }

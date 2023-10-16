@@ -17,19 +17,21 @@ import com.tecnoo.helpdesk.Services.UsuarioService;
 @RestController
 @RequestMapping(value = "/usuarios")
 public class UsuarioController {
-    
+
     @Autowired
     private UsuarioService usuarioService;
 
     @GetMapping
-    public ResponseEntity<List<UsuarioDTO>> findAll(){
-        List<UsuarioDTO> listaUsuarios = usuarioService.findAll().stream().map(usuario -> new UsuarioDTO(usuario)).collect(Collectors.toList());
+    public ResponseEntity<List<UsuarioDTO>> findAll() {
+        List<UsuarioDTO> listaUsuarios = usuarioService.findAll()
+                .stream().map(usuario -> new UsuarioDTO(usuario))
+                .collect(Collectors.toList());
 
         return ResponseEntity.ok().body(listaUsuarios);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<UsuarioDTO> findById(@PathVariable Long id){
+    public ResponseEntity<UsuarioDTO> findById(@PathVariable Long id) {
         Usuario usuarioAserConvertido = usuarioService.findById(id);
 
         UsuarioDTO objetoResposta = new UsuarioDTO(usuarioAserConvertido);

@@ -13,7 +13,7 @@ Endpoint Autenticação
 
 --TESTE DE CADASTRO
 
-**POST -> http://localhost:8080/api/auth/cadastro
+**POST -> http://localhost:8080/api/auth/usuario/cadastro
 
 {
     "nome": "Fabricio Monteiro",

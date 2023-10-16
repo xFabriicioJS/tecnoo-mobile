@@ -67,21 +67,19 @@ public class AuthController {
     JwtUtils jwtUtils;
 
     @PostMapping("/cliente/signin")
-    public ResponseEntity<?> authenticateCliente(@Valid @RequestBody LoginRequest loginRequest){
+    public ResponseEntity<?> authenticateCliente(@Valid @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getLoginUsuario(), loginRequest.getSenha()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwtString = jwtUtils.generateJwtToken(authentication);
 
-
         UsuarioDetailsImpl detalhesCliente = (UsuarioDetailsImpl) authentication.getPrincipal();
 
         List<String> niveis = detalhesCliente.getAuthorities().stream().map(nivel -> nivel.getAuthority())
                 .collect(Collectors.toList());
 
-
-        //Retornará um ResponseEntity com todas as informações do cliente
+        // Retornará um ResponseEntity com todas as informações do cliente
         return ResponseEntity.ok(new JwtResponse(
                 jwtString,
                 detalhesCliente.getId(),
@@ -95,53 +93,49 @@ public class AuthController {
                 detalhesCliente.getRazaoSocial(),
                 detalhesCliente.getIdTipo(),
                 detalhesCliente.getEndereco(),
-                detalhesCliente.getPlano()
-        ));
+                detalhesCliente.getPlano()));
     }
 
     @PostMapping("/usuario/signin")
-    public ResponseEntity<?> authenticateUsuario(@Valid @RequestBody LoginRequest loginRequest){
+    public ResponseEntity<?> authenticateUsuario(@Valid @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getLoginUsuario(), loginRequest.getSenha()));
 
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-                String jwtString = jwtUtils.generateJwtToken(authentication);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwtString = jwtUtils.generateJwtToken(authentication);
 
+        UsuarioDetailsImpl detalhesUsuario = (UsuarioDetailsImpl) authentication.getPrincipal();
 
-                UsuarioDetailsImpl detalhesUsuario = (UsuarioDetailsImpl) authentication.getPrincipal();
+        List<String> niveis = detalhesUsuario.getAuthorities().stream().map(nivel -> nivel.getAuthority())
+                .collect(Collectors.toList());
 
-                List<String> niveis = detalhesUsuario.getAuthorities().stream().map(nivel -> nivel.getAuthority())
-                        .collect(Collectors.toList());
-            
-                
-                //Retornará um ResponseEntity com todas as informações do usuário
-                return ResponseEntity.ok(new JwtResponse(jwtString,
-                        detalhesUsuario.getId(),
-                        detalhesUsuario.getLoginUsuario(),
-                        detalhesUsuario.getEmail(),
-                        niveis,
-                        detalhesUsuario.getNome()
-                ));
+        // Retornará um ResponseEntity com todas as informações do usuário
+        return ResponseEntity.ok(new JwtResponse(jwtString,
+                detalhesUsuario.getId(),
+                detalhesUsuario.getLoginUsuario(),
+                detalhesUsuario.getEmail(),
+                niveis,
+                detalhesUsuario.getNome()));
 
     }
 
     @PostMapping("/cliente/cadastro")
-    public ResponseEntity<?> registerCliente(@Valid @RequestBody SignupRequestCliente signupRequestCliente){
+    public ResponseEntity<?> registerCliente(@Valid @RequestBody SignupRequestCliente signupRequestCliente) {
 
-        //Fazendo algumas validações, por exemplo, se existem clientes já cadastrados com o "login" informado,
+        // Fazendo algumas validações, por exemplo, se existem clientes já cadastrados
+        // com o "login" informado,
         // ou com o email informado
-        if(pessoaRepository.existsByLoginUsuario(signupRequestCliente.getLoginUsuario())){
+        if (pessoaRepository.existsByLoginUsuario(signupRequestCliente.getLoginUsuario())) {
             throw new DataIntegrityViolationException("Esse login de usuário já está em uso!");
         }
 
-
-        if(pessoaRepository.existsByEmail(signupRequestCliente.getEmail())){
+        if (pessoaRepository.existsByEmail(signupRequestCliente.getEmail())) {
             throw new DataIntegrityViolationException("Esse email já pertence a um outro usuário");
         }
 
-        //Caso passe em todas as validações, prosseguimos com o código.
+        // Caso passe em todas as validações, prosseguimos com o código.
 
-        //Instanciamos um cliente
+        // Instanciamos um cliente
         Cliente cliente = new Cliente(signupRequestCliente.getNome(), signupRequestCliente.getEmail(),
                 signupRequestCliente.getLoginUsuario(),
                 encoder.encode(signupRequestCliente.getSenha()), signupRequestCliente.getCpf(),
@@ -151,39 +145,39 @@ public class AuthController {
 
         Set<Nivel> niveis = new HashSet<>();
         Nivel nivelCliente = nivelRepository.findByNome(ENivel.CLIENTE).orElseThrow(
-                ()->new ResourceNotFoundException("Nível cliente não encontrado")
-        );
+                () -> new ResourceNotFoundException("Nível cliente não encontrado"));
 
         niveis.add(nivelCliente);
-        //Atribuimos os seus niveis
+        // Atribuimos os seus niveis
         cliente.setNiveis(niveis);
 
         clienteRepository.save(cliente);
-        //Retornamos um 200 OK
+        // Retornamos um 200 OK
         return ResponseEntity.ok(new MessageResponse("Cliente registrado com sucesso"));
 
     }
 
     @PostMapping("/usuario/cadastro")
-    public ResponseEntity<?> registerUsuario(@Valid @RequestBody SignupRequest signupRequest){
+    public ResponseEntity<?> registerUsuario(@Valid @RequestBody SignupRequest signupRequest) {
 
-        //Fazendo algumas validações, por exemplo, se existem usuários já cadastrados com o login informado,
+        // Fazendo algumas validações, por exemplo, se existem usuários já cadastrados
+        // com o login informado,
         // ou com o email informado
-        if(pessoaRepository.existsByLoginUsuario(signupRequest.getLoginUsuario())){
+        if (pessoaRepository.existsByLoginUsuario(signupRequest.getLoginUsuario())) {
             return ResponseEntity
-            .badRequest()
-            .body(new MessageResponse("Esse login de usuário já está em uso!"));
+                    .badRequest()
+                    .body(new MessageResponse("Esse login de usuário já está em uso!"));
         }
 
-        if(pessoaRepository.existsByEmail(signupRequest.getEmail())){
+        if (pessoaRepository.existsByEmail(signupRequest.getEmail())) {
             return ResponseEntity
-            .badRequest()
-            .body("Já existe um usuário cadastrado com esse email, por favor tente outro!");
+                    .badRequest()
+                    .body("Já existe um usuário cadastrado com esse email, por favor tente outro!");
         }
 
-        //Caso passe em todas as validações, prosseguimos com o código.
+        // Caso passe em todas as validações, prosseguimos com o código.
 
-        //Instanciamos um usuário
+        // Instanciamos um usuário
         Usuario usuario = new Usuario(signupRequest.getNome(), signupRequest.getEmail(),
                 signupRequest.getLoginUsuario(),
                 encoder.encode(signupRequest.getSenha()));
@@ -191,22 +185,22 @@ public class AuthController {
         Set<String> stringNiveis = signupRequest.getNivel();
         Set<Nivel> niveis = new HashSet<>();
 
-        if(stringNiveis == null){
+        if (stringNiveis == null) {
             Nivel nivelTecnico = nivelRepository.findByNome(ENivel.TECNICO)
                     .orElseThrow(
-                            ()-> new ResourceNotFoundException("Nível não encontrado. Nivel: "
+                            () -> new ResourceNotFoundException("Nível não encontrado. Nivel: "
                                     + ENivel.TECNICO.getClass()
-                                    .getName()));
+                                            .getName()));
 
-            //Caso realmente exista o nivel Técnico no banco de dados, adicionamos o nivel
+            // Caso realmente exista o nivel Técnico no banco de dados, adicionamos o nivel
             // técnico a nossa instância de usuário para depois salvá-la
             niveis.add(nivelTecnico);
-        }else{
+        } else {
             stringNiveis.forEach(nivel -> {
                 switch (nivel) {
                     case "admin":
                         Nivel admin = nivelRepository.findByNome(ENivel.ADMINISTRADOR).orElseThrow(
-                                ()-> new ResourceNotFoundException("Nivel administrador não encontrado"));
+                                () -> new ResourceNotFoundException("Nivel administrador não encontrado"));
 
                         niveis.add(admin);
                         break;
@@ -214,34 +208,31 @@ public class AuthController {
                     case "supervisor":
                         Nivel supervisor = nivelRepository
                                 .findByNome(ENivel.SUPERVISOR).orElseThrow(
-                                        ()-> new ResourceNotFoundException("Nivel supervisor não encontrado"));
-                        
+                                        () -> new ResourceNotFoundException("Nivel supervisor não encontrado"));
+
                         niveis.add(supervisor);
                         break;
                     case "tecnico":
                         Nivel tecnico = nivelRepository.findByNome(ENivel.TECNICO)
-                                .orElseThrow(()-> new ResourceNotFoundException("Nivel técnico não encontrado."));
-                        
+                                .orElseThrow(() -> new ResourceNotFoundException("Nivel técnico não encontrado."));
+
                         niveis.add(tecnico);
                         break;
                     default:
                         Nivel tecnicoDefault = nivelRepository.findByNome(ENivel.TECNICO)
-                                .orElseThrow(()-> new ResourceNotFoundException("Nivel técnico não encontrado"));
-                        
+                                .orElseThrow(() -> new ResourceNotFoundException("Nivel técnico não encontrado"));
+
                         niveis.add(tecnicoDefault);
-                    }   
-                    
+                }
+
             });
         }
-        //Atribuimos os seus niveis
+        // Atribuimos os seus niveis
         usuario.setNiveis(niveis);
-        //Salvamos o usuário no BD
+        // Salvamos o usuário no BD
         usuarioRepository.save(usuario);
-        //Retornamos um 200OK
+        // Retornamos um 200OK
         return ResponseEntity.ok(new MessageResponse("Usuário registrado com sucesso"));
 
     }
-
-
-    
 }
