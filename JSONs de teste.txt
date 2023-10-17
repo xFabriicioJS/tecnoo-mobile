@@ -30,3 +30,28 @@ Endpoint Autenticação
     "loginUsuario": "xFabriicio",
     "senha": "123456"
 }
+
+
+-- CADASTRO de CLIENTE
+
+{
+    "nome": "Fabricio Monteiro",
+    "email": "fabricio@gmail.com",
+    "loginUsuario": "xFabriicio2",
+    "senha": "123456",
+    "cpf": "39331605880",
+    "idTipo": 2,
+    "endereco": {
+        "cep": "02547102",
+        "logradouro": "Rua Valter",
+        "numero": "70",
+        "complemento": "Casa",
+        "bairro": "Jardim Helena",
+        "cidade": "São Paulo",
+        "estado": "SP"
+    },
+    "telefone": "11 96827714",
+    "nivel": [
+        "Usuario"
+    ]
+}

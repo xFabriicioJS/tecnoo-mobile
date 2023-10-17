@@ -6,5 +6,4 @@ public enum ENivel {
     TECNICO,
     DESLIGADO,
     CLIENTE,
-
 }

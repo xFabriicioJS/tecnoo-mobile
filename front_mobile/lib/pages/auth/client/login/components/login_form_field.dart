@@ -4,11 +4,13 @@ class LoginFormField extends StatelessWidget {
   final String hintText;
   final IconData prefixIcon;
   final bool obscureText;
+  final ValueChanged<String> onChanged;
 
   const LoginFormField({
     super.key,
     required this.hintText,
     required this.prefixIcon,
+    required this.onChanged,
     this.obscureText = false,
   });
 
@@ -29,6 +31,7 @@ class LoginFormField extends StatelessWidget {
       ),
       child: TextFormField(
         obscureText: obscureText,
+        onChanged: onChanged,
         style: const TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w400,

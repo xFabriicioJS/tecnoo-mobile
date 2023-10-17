@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:front_mobile/extensions.dart';
 import 'package:front_mobile/pages/auth/client/login/components/login_form_field.dart';
 import 'package:front_mobile/pages/auth/client/login/components/text_divider.dart';
 
-class ClientLoginPage extends StatelessWidget {
+class ClientLoginPage extends StatefulWidget {
   const ClientLoginPage({super.key});
 
   @override
+  State<ClientLoginPage> createState() => _ClientLoginPageState();
+}
+
+class _ClientLoginPageState extends State<ClientLoginPage> {
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
+    String email = '';
+    String password = '';
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -67,17 +74,31 @@ class ClientLoginPage extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            const LoginFormField(
+                            LoginFormField(
                               hintText: "Email",
                               prefixIcon: Icons.email_outlined,
+                              onChanged: (value) {
+                                print(value);
+                                setState(() {
+                                  email = value;
+                                });
+                              },
                             ),
-                            const LoginFormField(
-                              hintText: "Senha",
-                              prefixIcon: Icons.key_rounded,
-                              obscureText: true,
-                            ),
+                            LoginFormField(
+                                hintText: "Senha",
+                                prefixIcon: Icons.key_rounded,
+                                obscureText: true,
+                                onChanged: (value) {
+                                  print(value);
+                                  setState(() {
+                                    password = value;
+                                  });
+                                }),
                             ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                // _handleLogin(emailController.text,
+                                //     passwordController.text);
+                              },
                               style: ElevatedButton.styleFrom(
                                 minimumSize: const Size(double.infinity, 50),
                                 padding: const EdgeInsets.all(30),
