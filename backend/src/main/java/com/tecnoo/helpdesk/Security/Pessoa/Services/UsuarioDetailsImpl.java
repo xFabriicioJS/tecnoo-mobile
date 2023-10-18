@@ -13,7 +13,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.tecnoo.helpdesk.Models.Usuario;
 
 public class UsuarioDetailsImpl implements UserDetails {
 
@@ -131,8 +130,6 @@ public class UsuarioDetailsImpl implements UserDetails {
         List<GrantedAuthority> authorities = pessoa.getNiveis().stream()
                 .map(nivel -> new SimpleGrantedAuthority(nivel.getNome().name()))
                 .collect(Collectors.toList());
-
-        System.out.println(authorities);
 
         if (authorities.contains(new SimpleGrantedAuthority("TECNICO"))) {
             return new UsuarioDetailsImpl(pessoa.getId(), pessoa.getLoginUsuario(), pessoa.getEmail(),

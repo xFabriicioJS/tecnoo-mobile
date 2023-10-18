@@ -20,10 +20,9 @@ import com.tecnoo.helpdesk.Security.Pessoa.Jwt.AuthEntryPointJwt;
 import com.tecnoo.helpdesk.Security.Pessoa.Jwt.AuthTokenFilter;
 import com.tecnoo.helpdesk.Security.Pessoa.Services.UsuarioDetailsServiceImpl;
 
-
 @Configuration
 @EnableGlobalMethodSecurity(
-  
+
     prePostEnabled = true)
 public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
   @Autowired
@@ -37,20 +36,15 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
     return new AuthTokenFilter();
   }
 
-  
   @Bean
   public DaoAuthenticationProvider authenticationProvider() {
-      DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+    DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
 
+    authProvider.setUserDetailsService(userDetailsService);
+    authProvider.setPasswordEncoder(passwordEncoder());
 
-      authProvider.setUserDetailsService(userDetailsService);
-      authProvider.setPasswordEncoder(passwordEncoder());
-
-      System.out.println("Teste!");
-
-      return authProvider;
+    return authProvider;
   }
-
 
   @Bean
   public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
@@ -62,7 +56,6 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
     return new BCryptPasswordEncoder();
   }
 
-  
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http.cors().and().csrf().disable()
@@ -72,11 +65,11 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
         .antMatchers("/api/auth/**").permitAll()
         .antMatchers("/api/test/**").permitAll()
         .anyRequest().authenticated();
-    
+
     http.authenticationProvider(authenticationProvider());
 
     http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-    
+
     return http.build();
   }
 }

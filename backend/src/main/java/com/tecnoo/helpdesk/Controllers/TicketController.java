@@ -8,6 +8,9 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +23,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.tecnoo.helpdesk.Models.Ticket;
 import com.tecnoo.helpdesk.Models.Dtos.TicketDTO;
+import com.tecnoo.helpdesk.Security.Pessoa.Services.UsuarioDetailsImpl;
 import com.tecnoo.helpdesk.Services.TicketService;
 
 @RestController
@@ -40,8 +44,19 @@ public class TicketController {
 
     @GetMapping
     public ResponseEntity<List<TicketDTO>> findAll() {
-        List<TicketDTO> listaChamados = ticketService.findAll().stream().map(chamado -> new TicketDTO(chamado))
-                .collect(Collectors.toList());
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        UsuarioDetailsImpl pessoa = (UsuarioDetailsImpl) authentication.getPrincipal();
+
+        if (!pessoa.getAuthorities().contains(new SimpleGrantedAuthority("CLIENTE"))) {
+            List<TicketDTO> listaChamados = ticketService.findAll().stream().map(chamado -> new TicketDTO(chamado))
+                    .collect(Collectors.toList());
+            return ResponseEntity.ok().body(listaChamados);
+        }
+
+        List<TicketDTO> listaChamados = ticketService.findAllByCliente(pessoa.getId()).stream()
+                .map(chamado -> new TicketDTO(chamado)).collect(Collectors.toList());
 
         return ResponseEntity.ok().body(listaChamados);
     }
@@ -76,12 +91,13 @@ public class TicketController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping(value = "/cliente/{id}")
-    public ResponseEntity<List<TicketDTO>> findAllByClienteId(@PathVariable Long id) {
-        List<TicketDTO> listaChamados = ticketService.findAllByCliente(id).stream()
-                .map(chamado -> new TicketDTO(chamado)).collect(Collectors.toList());
+    // @GetMapping(value = "/cliente/{id}")
+    // public ResponseEntity<List<TicketDTO>> findAllByClienteId(@PathVariable Long
+    // id) {
+    // List<TicketDTO> listaChamados = ticketService.findAllByCliente(id).stream()
+    // .map(chamado -> new TicketDTO(chamado)).collect(Collectors.toList());
 
-        return ResponseEntity.ok().body(listaChamados);
-    }
+    // return ResponseEntity.ok().body(listaChamados);
+    // }
 
 }

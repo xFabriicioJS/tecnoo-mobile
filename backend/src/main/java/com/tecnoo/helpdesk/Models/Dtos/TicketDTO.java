@@ -22,7 +22,7 @@ public class TicketDTO {
 
     private Long id;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    // @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String protocolo;
 
     @NotBlank(message = "O campo título é obrigatório")

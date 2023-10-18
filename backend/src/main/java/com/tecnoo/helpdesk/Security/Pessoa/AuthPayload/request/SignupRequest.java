@@ -7,7 +7,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.tecnoo.helpdesk.Models.Dtos.EnderecoDTO;
 
 //Classe que define o payload(modelo) para fazer um cadastro com um usuário, nesse caso, o login de usuário, email, senha, niveis, nome
 
@@ -48,7 +47,6 @@ public class SignupRequest {
         this.email = email;
     }
 
-
     public String getLoginUsuario() {
         return loginUsuario;
     }
@@ -73,6 +71,4 @@ public class SignupRequest {
         this.nivel = nivel;
     }
 
-    
-    
 }

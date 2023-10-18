@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -19,6 +20,8 @@ import com.tecnoo.helpdesk.Models.Enums.Status;
 import com.tecnoo.helpdesk.Models.Enums.TipoAtendimento;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 
 @Data
 @Entity
@@ -30,6 +33,7 @@ public class Ticket {
     @Column(name = "id_chamado")
     private Long id;
 
+    @NotBlank(message = "O campo protocolo é obrigatório")
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     @Column(unique = true)
@@ -57,4 +61,20 @@ public class Ticket {
 
     private String descricao;
 
+    @PrePersist
+    public void prePersist() {
+        this.protocolo = generateProtocol();
+    }
+
+    private String generateProtocol() {
+        LocalDateTime now = LocalDateTime.now();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyyHHmmss");
+
+        String formatedDate = now.format(formatter);
+
+        String uuid = UUID.randomUUID().toString();
+
+        return "TI-" + formatedDate + "-" + uuid.substring(0, 4);
+    }
 }
