@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:front_mobile/pages/auth/client/login/components/login_form_field.dart';
 import 'package:front_mobile/pages/auth/client/login/components/text_divider.dart';
+import 'package:front_mobile/services/auth/login_auth.service.dart';
+import 'package:get/get.dart';
 
 class ClientLoginPage extends StatefulWidget {
   const ClientLoginPage({super.key});
@@ -10,12 +12,16 @@ class ClientLoginPage extends StatefulWidget {
 }
 
 class _ClientLoginPageState extends State<ClientLoginPage> {
+  String email = '';
+  String password = '';
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    String email = '';
-    String password = '';
+    LoginAuthService authService = LoginAuthService();
+
+    handleLogin() {}
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -78,7 +84,6 @@ class _ClientLoginPageState extends State<ClientLoginPage> {
                               hintText: "Email",
                               prefixIcon: Icons.email_outlined,
                               onChanged: (value) {
-                                print(value);
                                 setState(() {
                                   email = value;
                                 });
@@ -89,15 +94,13 @@ class _ClientLoginPageState extends State<ClientLoginPage> {
                                 prefixIcon: Icons.key_rounded,
                                 obscureText: true,
                                 onChanged: (value) {
-                                  print(value);
                                   setState(() {
                                     password = value;
                                   });
                                 }),
                             ElevatedButton(
                               onPressed: () {
-                                // _handleLogin(emailController.text,
-                                //     passwordController.text);
+                                authService.login(email, password);
                               },
                               style: ElevatedButton.styleFrom(
                                 minimumSize: const Size(double.infinity, 50),

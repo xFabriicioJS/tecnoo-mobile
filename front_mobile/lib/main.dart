@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:front_mobile/components/tab_controller.dart';
 import 'package:front_mobile/utils/constants.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 
-void main() async {
+Future main() async {
   await dotenv.load(fileName: ".env");
   runApp(const MyApp());
 }
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       routes: appRoutes,
       theme: ThemeData(
         useMaterial3: true,
