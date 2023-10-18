@@ -55,3 +55,15 @@ Endpoint Autenticação
         "Usuario"
     ]
 }
+
+
+-- CADASTRO de CHAMADO
+
+{
+    "titulo": "Teste Número 2",
+    "descricao": "Descricao",
+    "idCliente": 2,
+    "dataLimite": "28/10/2023 16:17",
+    "prioridade": "BAIXA",
+    "tipoAtendimento": "REMOTO"
+}

@@ -30,7 +30,6 @@ public class Ticket {
     @Column(name = "id_chamado")
     private Long id;
 
-    @NotBlank(message = "O campo protocolo é obrigatório")
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     @Column(unique = true)

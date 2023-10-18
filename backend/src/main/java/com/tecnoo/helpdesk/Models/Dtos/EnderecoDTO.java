@@ -3,17 +3,11 @@ package com.tecnoo.helpdesk.Models.Dtos;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import com.tecnoo.helpdesk.Models.Cliente;
 import com.tecnoo.helpdesk.Models.Endereco;
-import com.tecnoo.helpdesk.Services.ClienteService;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Data
 public class EnderecoDTO {
-
-    @Autowired
-    private ClienteService clienteService;
 
     private Long id;
 
@@ -56,11 +50,6 @@ public class EnderecoDTO {
         this.bairro = endereco.getBairro();
         this.cidade = endereco.getCidade();
         this.estado = endereco.getEstado();
-    }
-
-    // Retorna um cliente com base no Id
-    public Cliente findClienteById(Long id) {
-        return clienteService.findById(id);
     }
 
 }

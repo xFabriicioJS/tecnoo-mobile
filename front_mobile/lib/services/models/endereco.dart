@@ -25,4 +25,16 @@ class Endereco {
     required this.cidade,
     required this.estado,
   });
+
+  factory Endereco.fromJSON(Map<String, dynamic> json) {
+    return Endereco(
+      id: json['id'],
+      cep: json['cep'],
+      logradouro: json['logradouro'],
+      numero: json['numero'],
+      bairro: json['bairro'],
+      cidade: json['cidade'],
+      estado: json['estado'],
+    );
+  }
 }

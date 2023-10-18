@@ -15,13 +15,35 @@ class _ClientLoginPageState extends State<ClientLoginPage> {
   String email = '';
   String password = '';
 
+  bool isLoading = false;
+
+  LoginAuthService authService = LoginAuthService();
+
+  void login() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    await authService.login(email, password);
+
+    mounted ? setState(() => isLoading = false) : null;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    authService.isLoggedIn.listen((value) {
+      if (value) {
+        Navigator.popUntil(context, (route) => route.isFirst);
+
+        Navigator.of(context).pushReplacementNamed('/home');
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
-    LoginAuthService authService = LoginAuthService();
-
-    handleLogin() {}
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -100,7 +122,7 @@ class _ClientLoginPageState extends State<ClientLoginPage> {
                                 }),
                             ElevatedButton(
                               onPressed: () {
-                                authService.login(email, password);
+                                login();
                               },
                               style: ElevatedButton.styleFrom(
                                 minimumSize: const Size(double.infinity, 50),
@@ -164,6 +186,22 @@ class _ClientLoginPageState extends State<ClientLoginPage> {
                       ),
                     )
                   ],
+                ),
+                Center(
+                  child: Visibility(
+                    visible: isLoading,
+                    child: Container(
+                      width: 100,
+                      height: 100,
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.5),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    ),
+                  ),
                 ),
                 Positioned(
                   top: 10,

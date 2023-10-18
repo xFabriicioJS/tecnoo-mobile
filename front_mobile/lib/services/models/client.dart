@@ -1,4 +1,3 @@
-import 'package:front_mobile/services/models/e_role.dart';
 import 'package:front_mobile/services/models/endereco.dart';
 
 class ClientModel {
@@ -7,7 +6,7 @@ class ClientModel {
   final String username;
   final String email;
   final String nome;
-  final List<Role> roles;
+  final List<dynamic> roles;
   final String telefone;
   final String? cnpj;
   final String? razaoSocial;
@@ -42,7 +41,12 @@ class ClientModel {
       cnpj: json['cnpj'],
       razaoSocial: json['razaoSocial'],
       idTipo: json['idTipo'],
-      endereco: json['endereco'],
+      endereco: Endereco.fromJSON(json['endereco']),
     );
+  }
+
+  @override
+  String toString() {
+    return 'ClientModel{type: $type, id: $id, username: $username, email: $email, nome: $nome, roles: $roles, telefone: $telefone, cnpj: $cnpj, razaoSocial: $razaoSocial, idTipo: $idTipo, endereco: $endereco}';
   }
 }

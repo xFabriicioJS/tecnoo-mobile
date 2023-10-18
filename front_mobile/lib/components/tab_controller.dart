@@ -2,11 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:front_mobile/pages/chamados/chamados_page.dart';
 import 'package:front_mobile/pages/descartes/descartes_page.dart';
 import 'package:front_mobile/pages/account/my_account_page.dart';
+import 'package:front_mobile/services/auth/login_auth.service.dart';
+import 'package:front_mobile/services/token/token_service.dart';
 
-class TabControllerWidget extends StatelessWidget {
+class TabControllerWidget extends StatefulWidget {
   const TabControllerWidget({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<TabControllerWidget> createState() => _TabControllerWidgetState();
+}
+
+class _TabControllerWidgetState extends State<TabControllerWidget> {
+  LoginAuthService authService = LoginAuthService();
+  TokenService tokenService = TokenService();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print(authService.isLoggedIn.value);
+
+    loadToken().then((value) => print(value));
+  }
+
+  Future<String?> loadToken() async {
+    return await tokenService.loadToken();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +37,7 @@ class TabControllerWidget extends StatelessWidget {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: const Color.fromARGB(255, 73, 4, 85),
           bottom: const TabBar(
             indicatorColor: Colors.white,

@@ -1,14 +1,25 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:front_mobile/controllers/client_controller.dart';
+import 'package:front_mobile/services/models/client.dart';
+import 'package:front_mobile/services/models/client_login_response.dart';
+import 'package:front_mobile/services/token/token_service.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 class LoginAuthService extends GetxController {
-  var isLoggedIn = false.obs;
+  RxBool isLoggedIn = false.obs;
 
-  void showLoginErrorSnackbar() {
+  final TokenService _tokenService = TokenService();
+
+  ClientController clientController = ClientController();
+
+  void showLoginErrorSnackbar(String title, String message) {
     Get.snackbar(
-      'Erro de login',
-      'As credenciais de login são inválidas. Tente novamente.',
+      title,
+      message,
       snackPosition: SnackPosition.BOTTOM,
       backgroundColor: Colors.red,
       colorText: Colors.white,
@@ -18,25 +29,36 @@ class LoginAuthService extends GetxController {
   Future<void> login(String username, String password) async {
     try {
       final response = await http.post(
-        Uri.parse('http://localhost:8080/api/auth/client'),
-        body: {
-          'username': username,
-          'password': password,
+        Uri.parse('${dotenv.env['API_URL']}/api/auth/cliente/signin'),
+        body: jsonEncode({'loginUsuario': username, 'senha': password}),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
         },
       );
 
       if (response.statusCode == 200) {
-        // Se a resposta tiver status 200, o login foi bem-sucedido.
         isLoggedIn.value = true;
+
+        ClientLoginResponse clientLoginResponse =
+            ClientLoginResponse.fromJSON(json.decode(response.body));
+
+        await _tokenService.saveToken(clientLoginResponse.accessToken);
+
+        // Salvando informações do usuário no estado global
+
+        ClientModel client = ClientModel.fromJson(json.decode(response.body));
+
+        clientController.setClient(client);
       } else {
-        // Caso contrário, o login falhou. Exiba o Snackbar.
-        showLoginErrorSnackbar();
+        showLoginErrorSnackbar(
+          'Erro ao fazer login',
+          'Usuário ou senha incorretos.',
+        );
         isLoggedIn.value = false;
       }
     } catch (e) {
-      // Trate qualquer erro de conexão aqui.
-      print('Erro: $e');
-      showLoginErrorSnackbar();
+      print(e);
+
       isLoggedIn.value = false;
     }
   }

@@ -25,10 +25,7 @@ public abstract class Pessoa {
     private String senha;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "usuario_niveis",
-            joinColumns = @JoinColumn(name = "usuario_id"),
-            inverseJoinColumns = @JoinColumn(name = "nivel_id")
-    )
+    @JoinTable(name = "usuario_niveis", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "nivel_id"))
     private Set<Nivel> niveis = new HashSet<Nivel>();
 
     public Pessoa(String nome, String email, String loginUsuario, String senha, Set<Nivel> niveis) {
@@ -50,5 +47,4 @@ public abstract class Pessoa {
 
     }
 
-    //private FotoPerfil fotoperfil
 }

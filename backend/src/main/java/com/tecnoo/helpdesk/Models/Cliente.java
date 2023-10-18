@@ -5,25 +5,23 @@ import java.util.List;
 
 import javax.persistence.*;
 
-
 import com.tecnoo.helpdesk.Models.Dtos.EnderecoDTO;
 import lombok.Data;
 
-@Entity @Table (name = "tbclientes") @Data
-public class Cliente extends Pessoa{
+@Entity
+@Table(name = "tbclientes")
+@Data
+public class Cliente extends Pessoa {
 
-    public Cliente(){}
-
+    public Cliente() {
+    }
 
     @Column(unique = true)
     private String cpf;
 
-
     private String telefone;
 
-
     private String cnpj;
-
 
     private String razaoSocial;
 
@@ -43,9 +41,8 @@ public class Cliente extends Pessoa{
 
     // private Foto fotoPerfil;
 
-
-    public Cliente( String nome, String email, String loginUsuario, String senha, String cpf, String telefone,
-                   String cnpj, String razaoSocial, Long idTipo, EnderecoDTO endereco){
+    public Cliente(String nome, String email, String loginUsuario, String senha, String cpf, String telefone,
+            String cnpj, String razaoSocial, Long idTipo, EnderecoDTO endereco) {
         super(nome, email, loginUsuario, senha);
         this.cpf = cpf;
         this.telefone = telefone;
@@ -53,6 +50,10 @@ public class Cliente extends Pessoa{
         this.razaoSocial = razaoSocial;
         this.idTipo = idTipo;
         this.endereco = new Endereco(endereco);
+    }
+
+    public EnderecoDTO getEnderecoDTO() {
+        return new EnderecoDTO(this.endereco);
     }
 
 }

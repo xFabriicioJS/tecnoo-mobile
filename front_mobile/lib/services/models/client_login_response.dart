@@ -1,5 +1,4 @@
 import 'package:front_mobile/services/models/client.dart';
-import 'package:front_mobile/services/models/e_role.dart';
 import 'package:front_mobile/services/models/endereco.dart';
 
 class ClientLoginResponse extends ClientModel {
@@ -13,7 +12,7 @@ class ClientLoginResponse extends ClientModel {
     required String username,
     required String email,
     required String nome,
-    required List<Role> roles,
+    required List<dynamic> roles,
     required String telefone,
     String? cnpj,
     String? razaoSocial,
@@ -50,7 +49,7 @@ class ClientLoginResponse extends ClientModel {
       cnpj: json['cnpj'],
       razaoSocial: json['razaoSocial'],
       idTipo: json['idTipo'],
-      endereco: json['endereco'],
+      endereco: Endereco.fromJSON(json['endereco']),
       token: json['token'],
       tokenType: json['tokenType'],
       accessToken: json['accessToken'],
