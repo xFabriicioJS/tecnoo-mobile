@@ -38,7 +38,7 @@ class _TabControllerWidgetState extends State<TabControllerWidget> {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          backgroundColor: const Color.fromARGB(255, 73, 4, 85),
+          backgroundColor: Theme.of(context).primaryColor,
           bottom: const TabBar(
             indicatorColor: Colors.white,
             tabs: [

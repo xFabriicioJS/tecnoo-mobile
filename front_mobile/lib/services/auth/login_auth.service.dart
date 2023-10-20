@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:front_mobile/components/error/snackbars.dart';
 import 'package:front_mobile/controllers/client_controller.dart';
-import 'package:front_mobile/services/models/client.dart';
-import 'package:front_mobile/services/models/client_login_response.dart';
+import 'package:front_mobile/services/models/client/client.dart';
+import 'package:front_mobile/services/models/client/client_login_response.dart';
 import 'package:front_mobile/services/token/token_service.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -16,15 +16,7 @@ class LoginAuthService extends GetxController {
 
   ClientController clientController = ClientController();
 
-  void showLoginErrorSnackbar(String title, String message) {
-    Get.snackbar(
-      title,
-      message,
-      snackPosition: SnackPosition.BOTTOM,
-      backgroundColor: Colors.red,
-      colorText: Colors.white,
-    );
-  }
+  CustomSnackbars customSnackbar = CustomSnackbars();
 
   Future<void> login(String username, String password) async {
     try {
@@ -44,13 +36,11 @@ class LoginAuthService extends GetxController {
 
         await _tokenService.saveToken(clientLoginResponse.accessToken);
 
-        // Salvando informações do usuário no estado global
-
         ClientModel client = ClientModel.fromJson(json.decode(response.body));
 
         clientController.setClient(client);
       } else {
-        showLoginErrorSnackbar(
+        customSnackbar.showErrorSnackbar(
           'Erro ao fazer login',
           'Usuário ou senha incorretos.',
         );

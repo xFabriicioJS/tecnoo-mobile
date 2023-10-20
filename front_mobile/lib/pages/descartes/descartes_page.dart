@@ -59,7 +59,7 @@ class DescartesPage extends StatelessWidget {
           const HelpAbout(
               icon: Icons.info_rounded,
               helpText: 'Toque sobre um descarte para visualizar detalhes.'),
-          const CardService(),
+          // const CardService(),
         ]),
       ),
     );

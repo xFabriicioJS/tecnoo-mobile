@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:front_mobile/components/tab_controller.dart';
+import 'package:front_mobile/extensions.dart';
 import 'package:front_mobile/utils/constants.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         brightness: Brightness.light,
-        primaryColor: const Color.fromARGB(255, 73, 4, 85),
+        primaryColor: "#6200EE".toColor(),
         fontFamily: 'Roboto',
         textTheme: const TextTheme(
           displayLarge: TextStyle(fontSize: 72, fontWeight: FontWeight.bold),

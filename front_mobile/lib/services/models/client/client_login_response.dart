@@ -1,4 +1,4 @@
-import 'package:front_mobile/services/models/client.dart';
+import 'package:front_mobile/services/models/client/client.dart';
 import 'package:front_mobile/services/models/endereco.dart';
 
 class ClientLoginResponse extends ClientModel {

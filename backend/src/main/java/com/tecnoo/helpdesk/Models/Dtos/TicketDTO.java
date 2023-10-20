@@ -29,6 +29,7 @@ public class TicketDTO {
     @Size(min = 5, max = 100)
     private String titulo;
 
+    @NotBlank(message = "O campo descrição é obrigatório")
     @Size(min = 0, max = 255, message = "A descrição deve ter no máximo 255 caracteres")
     private String descricao;
 
@@ -70,5 +71,6 @@ public class TicketDTO {
         this.status = ticket.getStatus();
         this.prioridade = ticket.getPrioridade();
         this.tipoAtendimento = ticket.getTipoAtendimento();
+        this.descricao = ticket.getDescricao();
     }
 }
