@@ -21,7 +21,7 @@ class LoginAuthService extends GetxController {
   Future<void> login(String username, String password) async {
     try {
       final response = await http.post(
-        Uri.parse('${dotenv.env['API_URL']}/api/auth/cliente/signin'),
+        Uri.parse('${dotenv.env['API_URL_MOBILE']}/api/auth/cliente/signin'),
         body: jsonEncode({'loginUsuario': username, 'senha': password}),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',

@@ -11,7 +11,7 @@ class TicketService {
   Future<List<Ticket>> getAllTickets(String token) async {
     try {
       final response = await http.get(
-        Uri.parse('${dotenv.env['API_URL']}/chamados'),
+        Uri.parse('${dotenv.env['API_URL_MOBILE']}/chamados'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
           'Authorization': 'Bearer $token',

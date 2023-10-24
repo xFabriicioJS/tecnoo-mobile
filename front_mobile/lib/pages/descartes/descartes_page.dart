@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:front_mobile/components/card_saiba_mais_descarte.dart';
-import 'package:front_mobile/components/card_service.dart';
 import 'package:front_mobile/components/elements/floating_add_button.dart';
 import 'package:front_mobile/components/help_about.dart';
-import 'package:front_mobile/components/services_count_widget.dart';
-import 'package:front_mobile/pages/chamados/addchamado_page.dart';
 import 'package:front_mobile/pages/descartes/adddescarte_page.dart';
 import 'package:front_mobile/pages/descartes/intro_descartes_page.dart';
 

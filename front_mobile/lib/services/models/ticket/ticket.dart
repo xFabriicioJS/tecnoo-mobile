@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:brasil_fields/brasil_fields.dart';
 
 class Ticket {
@@ -41,6 +42,11 @@ class Ticket {
       prioridade: json['prioridade'],
       tipoAtendimento: json['tipoAtendimento'],
     );
+  }
+
+  @override
+  String toString() {
+    return 'Ticket(id: $id, protocolo: $protocolo, titulo: $titulo, descricao: $descricao, idCliente: $idCliente, dataAbertura: $dataAbertura, dataFinalizacao: $dataFinalizacao, dataLimite: $dataLimite, status: $status, prioridade: $prioridade, tipoAtendimento: $tipoAtendimento)';
   }
 }
 
