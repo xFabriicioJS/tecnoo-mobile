@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       routes: appRoutes,
+      getPages: appGetPages,
       theme: ThemeData(
         useMaterial3: true,
         brightness: Brightness.light,

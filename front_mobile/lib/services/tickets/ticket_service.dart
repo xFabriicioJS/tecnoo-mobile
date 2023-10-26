@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 class TicketService {
   CustomSnackbars customSnackbar = CustomSnackbars();
 
-  Future<List<Ticket>> getAllTickets(String token) async {
+  Future<List<Ticket>?> getAllTickets(String token) async {
     try {
       final response = await http.get(
         Uri.parse('${dotenv.env['API_URL_MOBILE']}/chamados'),
@@ -20,11 +20,11 @@ class TicketService {
 
       if (response.statusCode == 200) {
         List<Ticket> tickets = [];
-        List<dynamic> responseJson = json.decode(response.body);
+        List<dynamic> responseJson =
+            json.decode(utf8.decode(response.bodyBytes));
 
         for (var element in responseJson) {
           tickets.add(Ticket.fromJSON(element));
-          // print(tickets);
         }
 
         return tickets;
@@ -38,6 +38,6 @@ class TicketService {
       print(e);
     }
 
-    return [];
+    return null;
   }
 }

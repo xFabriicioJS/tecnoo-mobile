@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:front_mobile/components/help_about.dart';
-import 'package:front_mobile/constants/states.dart';
 import 'package:front_mobile/extensions.dart';
 import 'package:front_mobile/mixins/validations_mixins.dart';
+import 'package:front_mobile/utils/constants.dart';
 
 class AddressDataPage extends StatefulWidget with ValidationsMixin {
   const AddressDataPage({

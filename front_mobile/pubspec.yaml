@@ -73,6 +73,9 @@ flutter:
     - assets/images/descarte2.jpg
     - assets/images/descarte3.png
     - assets/images/logonova.png
+    - assets/images/NotFound.png
+    - assets/images/ErrorImage.png
+    - assets/images/ticket-service.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

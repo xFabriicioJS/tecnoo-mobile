@@ -7,7 +7,7 @@ class Ticket {
   final String? titulo;
   final String? descricao;
   final int idCliente;
-  final DateTime? dataAbertura;
+  final DateTime dataAbertura;
   final DateTime? dataFinalizacao;
   final DateTime? dataLimite;
   final String? status;
@@ -20,7 +20,7 @@ class Ticket {
     this.titulo,
     this.descricao,
     required this.idCliente,
-    this.dataAbertura,
+    required this.dataAbertura,
     this.dataFinalizacao,
     this.dataLimite,
     this.status,
@@ -35,7 +35,7 @@ class Ticket {
       titulo: json['titulo'],
       descricao: json['descricao'],
       idCliente: json['idCliente'],
-      dataAbertura: parseDateTime(json['dataAbertura']),
+      dataAbertura: parseDateTime(json['dataAbertura'])!,
       dataFinalizacao: parseDateTime(json['dataFinalizacao']),
       dataLimite: parseDateTime(json['dataLimite']),
       status: json['status'],

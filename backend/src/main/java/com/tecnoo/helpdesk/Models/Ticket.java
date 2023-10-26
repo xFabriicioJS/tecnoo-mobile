@@ -2,11 +2,14 @@ package com.tecnoo.helpdesk.Models;
 
 import lombok.Data;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
@@ -21,6 +24,8 @@ import com.tecnoo.helpdesk.Models.Enums.TipoAtendimento;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -51,8 +56,6 @@ public class Ticket {
 
     private LocalDateTime dataLimite;
 
-    // private Foto fotoArquivo;
-
     private Status status = Status.ABERTO;
 
     private Prioridade prioridade;
@@ -60,6 +63,12 @@ public class Ticket {
     private TipoAtendimento tipoAtendimento;
 
     private String descricao;
+
+    @ElementCollection
+    @CollectionTable(name = "tbchamados_imagens", joinColumns = @JoinColumn(name = "id_chamado"))
+    @Column(name = "image_url")
+    private List<String> imageUrls = new ArrayList<>();
+
 
     @PrePersist
     public void prePersist() {

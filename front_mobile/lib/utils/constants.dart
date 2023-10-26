@@ -7,6 +7,8 @@ import 'package:front_mobile/pages/auth/client/login/login_page.dart';
 import 'package:front_mobile/pages/auth/client/signup_page.dart';
 import 'package:front_mobile/pages/auth/welcome_page.dart';
 import 'package:front_mobile/pages/chamados/addchamado_page.dart';
+import 'package:front_mobile/pages/chamados/chamados_details/chamado_details_page.dart';
+import 'package:get/get.dart';
 
 Map<String, Widget Function(BuildContext)> appRoutes = {
   //Home
@@ -24,7 +26,45 @@ Map<String, Widget Function(BuildContext)> appRoutes = {
   '/login': (context) => const ClientLoginPage(),
   // Add chamado
   '/add-chamado': (context) => const AddChamadoPage(),
-
   // Admin Login Route
   // '/admin-login': (context) => const AdminLoginPage(),
+};
+
+final List<GetPage> appGetPages = [
+  GetPage(
+    name: '/chamados/:id',
+    page: () => ChamadoDetailsPage(
+      ticket: Get.arguments,
+    ),
+  )
+];
+
+final Map<String, String> states = {
+  "SP": 'São Paulo',
+  "RJ": "Rio de Janeiro",
+  "MG": 'Minas Gerais',
+  "ES": 'Espírito Santo',
+  "AC": 'Acre',
+  "AL": 'Alagoas',
+  "AP": 'Amapá',
+  "AM": 'Amazonas',
+  "BA": 'Bahia',
+  "CE": 'Ceará',
+  "DF": 'Distrito Federal',
+  "GO": 'Goiás',
+  "MA": 'Maranhão',
+  "MT": 'Mato Grosso',
+  "MS": 'Mato Grosso do Sul',
+  "PA": 'Pará',
+  "PB": 'Paraíba',
+  "PR": 'Paraná',
+  "PE": 'Pernambuco',
+  "PI": 'Piauí',
+  "RN": 'Rio Grande do Norte',
+  "RS": 'Rio Grande do Sul',
+  "RO": 'Rondônia',
+  "RR": 'Roraima',
+  "SC": 'Santa Catarina',
+  "SE": 'Sergipe',
+  "TO": 'Tocantins',
 };

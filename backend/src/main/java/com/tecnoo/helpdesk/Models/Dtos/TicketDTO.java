@@ -1,6 +1,7 @@
 package com.tecnoo.helpdesk.Models.Dtos;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -55,7 +56,7 @@ public class TicketDTO {
     @NotNull(message = "Local do atendimento é obrigatório")
     private TipoAtendimento tipoAtendimento;
 
-    // private Foto fotoArquivo;
+    private List<String> imageUrls;
 
     public TicketDTO() {
     }
@@ -72,5 +73,6 @@ public class TicketDTO {
         this.prioridade = ticket.getPrioridade();
         this.tipoAtendimento = ticket.getTipoAtendimento();
         this.descricao = ticket.getDescricao();
+        this.imageUrls = ticket.getImageUrls();
     }
 }
