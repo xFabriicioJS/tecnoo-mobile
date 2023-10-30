@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:front_mobile/pages/chamados/chamados_page.dart';
+import 'package:front_mobile/pages/chamados/chamados_page/chamados_page.dart';
 import 'package:front_mobile/pages/descartes/descartes_page.dart';
 import 'package:front_mobile/pages/account/my_account_page.dart';
-import 'package:front_mobile/services/auth/login_auth.service.dart';
+import 'package:front_mobile/controllers/login_controller.dart';
 import 'package:front_mobile/services/token/token_service.dart';
 
 class TabControllerWidget extends StatefulWidget {
@@ -15,7 +15,7 @@ class TabControllerWidget extends StatefulWidget {
 }
 
 class _TabControllerWidgetState extends State<TabControllerWidget> {
-  LoginAuthService authService = LoginAuthService();
+  LoginController authService = LoginController();
   TokenService tokenService = TokenService();
 
   @override

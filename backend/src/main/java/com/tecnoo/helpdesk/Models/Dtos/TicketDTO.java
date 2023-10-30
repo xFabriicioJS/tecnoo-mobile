@@ -2,6 +2,7 @@ package com.tecnoo.helpdesk.Models.Dtos;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -58,6 +59,9 @@ public class TicketDTO {
 
     private List<String> imageUrls;
 
+    private List<HistoricoChamadoDTO> historicos;
+
+
     public TicketDTO() {
     }
 
@@ -74,5 +78,9 @@ public class TicketDTO {
         this.tipoAtendimento = ticket.getTipoAtendimento();
         this.descricao = ticket.getDescricao();
         this.imageUrls = ticket.getImageUrls();
+        this.historicos = ticket.getHistoricos()
+        .stream()
+        .map((historico) -> new HistoricoChamadoDTO(historico))
+        .collect(Collectors.toList());
     }
 }

@@ -71,7 +71,32 @@ class ChamadoDetailsPage extends StatelessWidget {
                   ],
                 ),
               ),
-              TicketInfo(ticket: ticket)
+              TicketInfo(ticket: ticket),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 1,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: ListView.separated(
+                    itemBuilder: ((context, index) => const ListTile(
+                          leading: CircleAvatar(child: Text('A')),
+                          title: Text('Headline'),
+                          subtitle: Text('Supporting text'),
+                          trailing: Icon(Icons.favorite_rounded),
+                        )),
+                    separatorBuilder: (context, index) => const Divider(
+                          height: 1,
+                        ),
+                    itemCount: ticket.historicos?.length ?? 0),
+              )
             ],
           ),
         ),
@@ -161,7 +186,8 @@ class TicketInfo extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        ticket.dataLimite!.diaMesAnoAbrev(),
+                        ticket.dataLimite?.diaMesAnoAbrev() ??
+                            "Não foi possível definir o prazo.",
                       ),
                     ],
                   ),

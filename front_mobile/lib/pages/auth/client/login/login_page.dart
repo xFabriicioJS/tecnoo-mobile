@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:front_mobile/pages/auth/client/login/components/login_form_field.dart';
 import 'package:front_mobile/pages/auth/client/login/components/text_divider.dart';
-import 'package:front_mobile/services/auth/login_auth.service.dart';
-import 'package:get/get.dart';
+import 'package:front_mobile/controllers/login_controller.dart';
 
 class ClientLoginPage extends StatefulWidget {
   const ClientLoginPage({super.key});
@@ -17,7 +16,7 @@ class _ClientLoginPageState extends State<ClientLoginPage> {
 
   bool isLoading = false;
 
-  LoginAuthService authService = LoginAuthService();
+  LoginController authService = LoginController();
 
   void login() async {
     setState(() {

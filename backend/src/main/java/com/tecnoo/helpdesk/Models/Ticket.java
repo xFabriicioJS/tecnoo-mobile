@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -69,6 +70,8 @@ public class Ticket {
     @Column(name = "image_url")
     private List<String> imageUrls = new ArrayList<>();
 
+    @OneToMany(mappedBy = "chamado")
+    private List<HistoricoChamado> historicos = new ArrayList<>();
 
     @PrePersist
     public void prePersist() {

@@ -9,7 +9,7 @@ import 'package:front_mobile/services/token/token_service.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
-class LoginAuthService extends GetxController {
+class LoginController extends GetxController {
   RxBool isLoggedIn = false.obs;
 
   final TokenService _tokenService = TokenService();

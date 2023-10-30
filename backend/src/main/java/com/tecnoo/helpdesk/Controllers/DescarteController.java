@@ -25,10 +25,10 @@ import com.tecnoo.helpdesk.Services.DescarteService;
 @RestController
 @RequestMapping(value = "/descartes")
 public class DescarteController {
-    
+
     @Autowired
     private DescarteService descarteService;
-    
+
     @GetMapping(value = "/{id}")
     public ResponseEntity<DescarteDTO> findByID(@PathVariable Long id){
         Descarte descarteAserConvertido = descarteService.findById(id);

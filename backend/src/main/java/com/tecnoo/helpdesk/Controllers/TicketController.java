@@ -93,13 +93,4 @@ public class TicketController {
         return ResponseEntity.ok().build();
     }
 
-    // @GetMapping(value = "/cliente/{id}")
-    // public ResponseEntity<List<TicketDTO>> findAllByClienteId(@PathVariable Long
-    // id) {
-    // List<TicketDTO> listaChamados = ticketService.findAllByCliente(id).stream()
-    // .map(chamado -> new TicketDTO(chamado)).collect(Collectors.toList());
-
-    // return ResponseEntity.ok().body(listaChamados);
-    // }
-
 }

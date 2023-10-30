@@ -35,7 +35,7 @@ public class ClienteService {
         return repository.findAll();
     }
 
-    
+
 
     public Cliente update(Long id, @Valid ClienteDTO cliente){
         Cliente clienteAserAtualizado = findById(id);
