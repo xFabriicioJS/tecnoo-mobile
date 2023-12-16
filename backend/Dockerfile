@@ -1,11 +1,9 @@
-# Use a imagem base Java 11
-FROM openjdk:11-jre-slim
-
-# Copie o arquivo JAR da sua aplicação para o contêiner
-COPY target/sua-aplicacao.jar /app.jar
-
-# Exponha a porta em que sua aplicação será executada
+#
+# Build stage
+#
+FROM maven:3.8.3-openjdk-11 AS build
+COPY src /home/app/src
+COPY pom.xml /home/app
+RUN mvn -f /home/app/pom.xml clean package
 EXPOSE 8080
-
-# Comando para iniciar sua aplicação Spring Boot
-CMD ["java", "-jar", "/app.jar"]
+ENTRYPOINT ["java","-jar","/home/app/target/helpdesk_tecnoo_backend.jar"]

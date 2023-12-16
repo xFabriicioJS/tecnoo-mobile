@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Nivel {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,7 +21,4 @@ public class Nivel {
     @Column(length = 50)
     private ENivel nome;
 
-
-    
-    
 }

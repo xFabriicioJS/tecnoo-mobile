@@ -1,0 +1,5 @@
+INSERT INTO niveis (nome) VALUES ("ADMINISTRADOR");
+INSERT INTO niveis (nome) VALUES ("SUPERVISOR");
+INSERT INTO niveis (nome) VALUES ("TECNICO");
+INSERT INTO niveis (nome) VALUES ("DESLIGADO");
+INSERT INTO niveis (nome) VALUES ("CLIENTE");
